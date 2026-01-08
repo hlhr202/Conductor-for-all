@@ -76,7 +76,7 @@ describe('Install Utils', () => {
   describe('createConductorDirectories', () => {
     it('should create directories', async () => {
       await createConductorDirectories(targetDir);
-      expect(ensureDir).toHaveBeenCalledTimes(3); 
+      expect(ensureDir).toHaveBeenCalledTimes(2); 
       expect(ensureDir).toHaveBeenCalledWith(expect.stringContaining('.opencode/commands'));
     });
   });

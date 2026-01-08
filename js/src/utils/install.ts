@@ -22,7 +22,6 @@ export async function createConductorDirectories(targetDir: string): Promise<voi
   const opencodeDir = join(targetDir, '.opencode'); 
   await ensureDir(join(opencodeDir, 'commands'));
   await ensureDir(join(opencodeDir, 'conductor'));
-  await ensureDir(join(targetDir, 'conductor'));
 }
 
 export async function copyTemplateFiles(targetDir: string, agentType: AgentType): Promise<void> {
