@@ -10,12 +10,22 @@ export async function validateProjectDirectory(targetDir: string, agentType: Age
     throw new Error(`Target directory does not exist: ${targetDir}`);
   }
 
-  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  let agentDir: string;
+  let setupFile: string;
+
+  if (agentType === 'claude-code') {
+    agentDir = '.claude';
+     setupFile = join(targetDir, agentDir, 'commands', 'conductor:setup.md');
+  } else if (agentType === 'antigravity') {
+    agentDir = '.agent';
+    setupFile = join(targetDir, agentDir, 'workflows', 'conductor:setup.toml');
+  } else {
+    agentDir = '.opencode';
+    setupFile = join(targetDir, agentDir, 'commands', 'conductor:setup.md');
+  }
+
   const agentPath = join(targetDir, agentDir);
   const conductorPath = join(agentPath, 'conductor');
-  
-  // Check if both the conductor directory and at least one command file exist
-  const setupFile = join(agentPath, 'commands', 'conductor:setup.md');
   
   if (existsSync(conductorPath) && existsSync(setupFile)) {
     throw new Error(`Conductor (${agentType}) is already installed in: ${targetDir}`);
