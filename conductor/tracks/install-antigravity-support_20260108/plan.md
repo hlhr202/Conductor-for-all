@@ -81,4 +81,4 @@
     - [ ] Update plan with commit SHA
     - [ ] Commit plan update
 
-- [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
