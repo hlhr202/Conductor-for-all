@@ -27,8 +27,8 @@
     "vitest": "^2.1.8"
   },
   "dependencies": {
+    "@inquirer/select": "^5.0.3",
     "fs-extra": "^11.3.3",
-    "inquirer": "^13.1.0",
     "smol-toml": "^1.6.0",
     "yargs": "^18.0.0"
   }

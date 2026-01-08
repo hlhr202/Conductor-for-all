@@ -18,28 +18,30 @@ export async function validateProjectDirectory(targetDir: string): Promise<strin
   return targetDir;
 }
 
-export async function createConductorDirectories(targetDir: string): Promise<void> {
-  const opencodeDir = join(targetDir, '.opencode'); 
-  await ensureDir(join(opencodeDir, 'commands'));
-  await ensureDir(join(opencodeDir, 'conductor'));
+export async function createConductorDirectories(targetDir: string, agentType: AgentType): Promise<void> {
+  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  const agentPath = join(targetDir, agentDir); 
+  await ensureDir(join(agentPath, 'commands'));
+  await ensureDir(join(agentPath, 'conductor'));
 }
 
 export async function copyTemplateFiles(targetDir: string, agentType: AgentType): Promise<void> {
   const commands = ['setup', 'newTrack', 'implement', 'status', 'revert'];
-  const opencodeDir = join(targetDir, '.opencode'); 
-  const commandsDir = join(opencodeDir, 'commands');
+  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  const agentPath = join(targetDir, agentDir); 
+  const commandsDir = join(agentPath, 'commands');
 
   const templateRoot = await getTemplateRoot();
   // __$$CODE_AGENT_INSTALL_PATH$$__ expects the path to the root of the install?
   // "run ls __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/"
   // If templateRoot is `gemini-conductor-codebase` (which has `templates/`),
   // then CODE_AGENT_INSTALL_PATH should be templateRoot.
-  const installPath = join(targetDir, '.opencode', 'conductor');
+  const installPath = join(targetDir, agentDir, 'conductor');
 
-  // Copy templates to .opencode/conductor/templates
+  // Copy templates to agent directory
   try {
      const templateSource = join(templateRoot, 'templates');
-     const templateDest = join(opencodeDir, 'conductor', 'templates');
+     const templateDest = join(agentPath, 'conductor', 'templates');
      await copy(templateSource, templateDest);
   } catch (e) {
      console.warn('Failed to copy templates directory:', e);
@@ -58,7 +60,7 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
 
         let prompt = parsed.prompt;
         
-        prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$\__/g, installPath);
+        prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
         
         const finalPrompt = substituteVariables(prompt, { agent_type: agentType });
         

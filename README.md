@@ -14,36 +14,17 @@ Originally tied to the Gemini CLI extension, this project aims to decouple the m
 
 ### 1. Installation
 
-#### Option A: Node.js (Recommended) (New!)
-
-You can install the tool globally via npm:
+#### Global Installation via npm (Recommended)
 
 ```bash
 npm install -g conductor-4-all
 ```
 
-#### Option B: From Crates.io (Rust)
-
-You can install the Rust version directly from crates.io.
+#### From Source
 
 ```bash
-cargo install conductor-4-all
-```
-
-#### Option C: From Source
-
-**Node.js:**
-```bash
-cd js
 npm install
 npm run build
-node dist/index.js install <target>
-```
-
-**Rust:**
-```bash
-cargo build --release
-./target/release/conductor install
 ```
 
 ### 2. Setup Conductor in Your Project
@@ -51,11 +32,11 @@ cargo build --release
 Run the `install` command in the root of your project:
 
 ```bash
-# If installed via cargo:
+# If installed globally:
 conductor install
 
 # If built from source:
-./target/release/conductor install
+node dist/index.js install
 ```
 
 You will be prompted to select your AI Coding Agent:
@@ -82,7 +63,7 @@ Once installed, you can instruct your AI Agent to perform Conductor tasks using 
 We follow a strict spec-driven development workflow ourselves!
 
 -   **Workflow:** Please read [`conductor/workflow.md`](./conductor/workflow.md) for our detailed development protocols (Tasks, TDD, Commits).
--   **Tech Stack:** Check [`conductor/tech-stack.md`](./conductor/tech-stack.md) for approved technologies (Rust, Node.js, etc.).
+-   **Tech Stack:** Check [`conductor/tech-stack.md`](./conductor/tech-stack.md) for approved technologies (TypeScript/Node.js).
 -   **Product Guidelines:** See [`conductor/product-guidelines.md`](./conductor/product-guidelines.md) for design philosophy.
 
 To start contributing:

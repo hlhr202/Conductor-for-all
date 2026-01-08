@@ -1,0 +1,8 @@
+{
+  "track_id": "typescript-port_20260108",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-08T12:04:44Z",
+  "updated_at": "2026-01-08T12:04:44Z",
+  "description": "convert this project into typescript + nodejs + pnpm program. use yargs for command parsing, using inquirer (npm package) for prompting just like inquire in rust. since rust version use binary include, nodejs version should just include the string into the codebase. finally I wish to put all nodejs program related project under \"js\" folder"
+}

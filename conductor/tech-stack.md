@@ -1,12 +1,18 @@
 # Technology Stack
 
 ## Core Technology
-- **Language:** Rust (Edition 2024)
-- **Build System & Package Manager:** Cargo
+- **Language:** TypeScript
+- **Runtime:** Node.js (v18+)
+- **Build System & Package Manager:** npm/pnpm
 
 ## Libraries & Dependencies
-- **CLI Framework:** `clap` (Command Line Argument Parser)
-- **Serialization:** `serde`, `serde_json` (Used for config/state management)
-- **Compression & Archive:** `tar`, `flate2` (For bundling assets)
-- **Configuration:** `toml` (For parsing embedded configs)
-- **Interaction:** `inquire` (For interactive prompts)
+- **CLI Framework:** `yargs` (Command Line Argument Parser)
+- **Interactive Prompts:** `inquirer` (For user input and selections)
+- **Bundler:** `tsup` (TypeScript bundler for building distribution files)
+- **Testing Framework:** `vitest` (Unit and integration testing)
+- **File System:** Built-in `fs/promises` with `fs-extra` for advanced operations
+
+## Development Tools
+- **TypeScript Compiler:** For type checking and compilation
+- **Code Coverage:** Vitest coverage with >80% target
+- **Linting:** (To be configured as needed)

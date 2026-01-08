@@ -17,7 +17,7 @@ export async function getTemplateRoot(): Promise<string> {
   const candidates = [
     join(__dirname, 'templates'), 
     join(__dirname, '../templates'),
-    join(__dirname, '../../../gemini-conductor-codebase')
+    join(__dirname, '../../gemini-conductor-codebase')
   ];
 
   for (const path of candidates) {

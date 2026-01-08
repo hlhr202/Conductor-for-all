@@ -11,21 +11,28 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string }>)
     console.log(`Initializing Conductor in: ${targetDir}`);
     
     // 1. Validate
+    console.log('Step 1: Validating project directory...');
     const validatedPath = await validateProjectDirectory(targetDir);
+    console.log(`✔ Validation complete: ${validatedPath}`);
     
     // 2. Select Agent
+    console.log('\nStep 2: Prompting for agent selection...');
     const agent = await promptForAgent();
-    console.log(`Selected agent: ${agent}`);
+    console.log(`✔ Selected agent: ${agent}`);
     
     // 3. Create Directories
-    await createConductorDirectories(validatedPath);
+    console.log('\nStep 3: Creating Conductor directories...');
+    await createConductorDirectories(validatedPath, agent);
+    console.log('✔ Directories created');
     
     // 4. Copy Templates
+    console.log('\nStep 4: Copying template files...');
     await copyTemplateFiles(validatedPath, agent);
+    console.log('✔ Templates copied');
     
-    console.log('✔ Conductor initialized successfully!');
+    console.log('\n✔ Conductor initialized successfully!');
   } catch (err) {
-    console.error('✘ Installation failed:', err instanceof Error ? err.message : err);
+    console.error('\n✘ Installation failed:', err instanceof Error ? err.message : err);
     process.exit(1);
   }
 }

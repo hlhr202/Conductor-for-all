@@ -16,7 +16,7 @@ export default defineConfig({
   target: 'node18',
   platform: 'node',
   onSuccess: async () => {
-    await copy('../gemini-conductor-codebase', 'dist/templates');
+    await copy('./gemini-conductor-codebase', 'dist/templates');
     console.log('Templates copied to dist/templates');
   },
 });
