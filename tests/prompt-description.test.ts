@@ -18,10 +18,17 @@ describe('Agent Selection Prompt', () => {
     
     // Check choices
     const choices = (callArgs as any).choices;
-    const opencodeChoice = choices.find((c: any) => c.value === 'opencode');
     
+    const opencodeChoice = choices.find((c: any) => c.value === 'opencode');
     expect(opencodeChoice).toBeDefined();
-    // This assertion should fail initially
-    expect(opencodeChoice.description).toBe('VS Code-based assistant');
+    expect(opencodeChoice.description).toBe('The open source AI coding agent');
+
+    const claudeChoice = choices.find((c: any) => c.value === 'claude-code');
+    expect(claudeChoice).toBeDefined();
+    expect(claudeChoice.description).toBe("Anthropic's coding assistant");
+
+    const antigravityChoice = choices.find((c: any) => c.value === 'antigravity');
+    expect(antigravityChoice).toBeDefined();
+    expect(antigravityChoice.description).toBe("Google's agentic coding assistant");
   });
 });

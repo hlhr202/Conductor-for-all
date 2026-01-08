@@ -8,17 +8,17 @@ export async function promptForAgent(): Promise<AgentType> {
       {
         name: 'OpenCode',
         value: 'opencode',
-        description: 'VS Code-based assistant',
+        description: 'The open source AI coding agent',
       },
       {
         name: 'Claude Code',
         value: 'claude-code',
-        description: 'Anthropic-based coding assistant',
+        description: "Anthropic's coding assistant",
       },
       {
         name: 'Antigravity',
         value: 'antigravity',
-        description: 'Advanced agentic coding assistant',
+        description: "Google's agentic coding assistant",
       },
     ],
     default: 'opencode',
