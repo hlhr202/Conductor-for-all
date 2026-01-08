@@ -71,7 +71,7 @@
 
 ## Phase 3: Agent Description Correction
 
-- [ ] Task: Correct opencode agent description in selection prompt
+- [~] Task: Correct opencode agent description in selection prompt
     - [ ] Write failing test for agent description
     - [ ] Implement: update prompt.ts to remove "Gemini-based" description
     - [ ] Verify test passes
