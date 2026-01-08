@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-const { existsSync, ensureDir, writeFile } = fs;
+const { existsSync, ensureDir, writeFile, copy } = fs;
 import { join } from 'path';
 import { parse } from 'smol-toml';
 import { loadTemplate, substituteVariables, getTemplateRoot } from './template.js';
@@ -35,7 +35,16 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
   // "run ls __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/"
   // If templateRoot is `gemini-conductor-codebase` (which has `templates/`),
   // then CODE_AGENT_INSTALL_PATH should be templateRoot.
-  const installPath = templateRoot;
+  const installPath = join(targetDir, '.opencode', 'conductor');
+
+  // Copy templates to .opencode/conductor/templates
+  try {
+     const templateSource = join(templateRoot, 'templates');
+     const templateDest = join(opencodeDir, 'conductor', 'templates');
+     await copy(templateSource, templateDest);
+  } catch (e) {
+     console.warn('Failed to copy templates directory:', e);
+  }
 
   for (const cmd of commands) {
     try {

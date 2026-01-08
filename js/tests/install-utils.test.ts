@@ -66,7 +66,8 @@ describe('Install Utils', () => {
       const writeCall = vi.mocked(writeFile).mock.calls[0];
       const content = writeCall[1] as string;
       expect(content).toContain('Hello opencode');
-      expect(content).toContain('/mock/install/path');
+      // expect(content).toContain('/mock/install/path'); // Replaced by local path logic
+      expect(content).toContain('/mock/target/dir/.opencode/conductor');
       expect(content).not.toContain('__$$CODE_AGENT_INSTALL_PATH$$__');
     });
   });

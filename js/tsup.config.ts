@@ -8,7 +8,7 @@ export default defineConfig({
   dts: false,
   clean: true,
   sourcemap: false,
-  external: [],
+  external: ['fs-extra', 'inquirer', 'smol-toml', 'yargs', 'path', 'url', 'fs/promises'],
   bundle: true,
   splitting: false,
   minify: false,
