@@ -14,7 +14,7 @@
 
 - [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
-## Phase 2: Antigravity Agent Support
+## Phase 2: Antigravity Agent Support [checkpoint: b3b9844]
 
 - [x] Task: Add 'antigravity' to AgentType type definition [3022a38]
     - [ ] Write failing test for new agent type support
@@ -66,7 +66,8 @@
     - [ ] Update plan with commit SHA
     - [ ] Commit plan update
 
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md) [checkpoint: b3b9844]
+
 
 ## Phase 3: Agent Description Correction
 
