@@ -1,4 +1,4 @@
-export type AgentType = 'opencode' | 'claude-code';
+export type AgentType = 'opencode' | 'claude-code' | 'antigravity';
 
 export interface ProjectConfig {
   agentType: AgentType;
