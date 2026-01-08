@@ -1,0 +1,9 @@
+{
+  "name": "conductor-4-all",
+  "version": "1.0.0",
+  "description": "Conductor spec-driven development CLI - TypeScript/Node.js version",
+  "type": "module",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.16"
+  }
+}
