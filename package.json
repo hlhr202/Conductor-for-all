@@ -1,6 +1,6 @@
 {
   "name": "conductor-4-all",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Conductor spec-driven development CLI - TypeScript/Node.js version",
   "repository": {
     "type": "git",

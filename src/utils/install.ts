@@ -5,14 +5,20 @@ import { parse } from 'smol-toml';
 import { loadTemplate, substituteVariables, getTemplateRoot } from './template.js';
 import { AgentType } from '../types.js';
 
-export async function validateProjectDirectory(targetDir: string): Promise<string> {
+export async function validateProjectDirectory(targetDir: string, agentType: AgentType): Promise<string> {
   if (!existsSync(targetDir)) {
     throw new Error(`Target directory does not exist: ${targetDir}`);
   }
 
-  const conductorDir = join(targetDir, 'conductor');
-  if (existsSync(conductorDir)) {
-    throw new Error(`Conductor is already installed in: ${targetDir}`);
+  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  const agentPath = join(targetDir, agentDir);
+  const conductorPath = join(agentPath, 'conductor');
+  
+  // Check if both the conductor directory and at least one command file exist
+  const setupFile = join(agentPath, 'commands', 'conductor:setup.md');
+  
+  if (existsSync(conductorPath) && existsSync(setupFile)) {
+    throw new Error(`Conductor (${agentType}) is already installed in: ${targetDir}`);
   }
 
   return targetDir;

@@ -10,15 +10,15 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string }>)
   try {
     console.log(`Initializing Conductor in: ${targetDir}`);
     
-    // 1. Validate
-    console.log('Step 1: Validating project directory...');
-    const validatedPath = await validateProjectDirectory(targetDir);
-    console.log(`✔ Validation complete: ${validatedPath}`);
-    
-    // 2. Select Agent
-    console.log('\nStep 2: Prompting for agent selection...');
+    // 1. Select Agent
+    console.log('Step 1: Prompting for agent selection...');
     const agent = await promptForAgent();
     console.log(`✔ Selected agent: ${agent}`);
+
+    // 2. Validate
+    console.log('\nStep 2: Validating project directory...');
+    const validatedPath = await validateProjectDirectory(targetDir, agent);
+    console.log(`✔ Validation complete: ${validatedPath}`);
     
     // 3. Create Directories
     console.log('\nStep 3: Creating Conductor directories...');
