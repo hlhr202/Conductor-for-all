@@ -4,6 +4,8 @@
   "description": "Conductor spec-driven development CLI - TypeScript/Node.js version",
   "type": "module",
   "devDependencies": {
-    "@vitest/coverage-v8": "^4.0.16"
+    "@types/node": "^25.0.3",
+    "@vitest/coverage-v8": "^4.0.16",
+    "typescript": "^5.9.3"
   }
 }
