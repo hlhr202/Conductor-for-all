@@ -32,15 +32,15 @@
     - [x] Write test: Verify ESM and CommonJS compatibility
     - [x] Implement: Configure tsup for dual module formats if needed
 
-- [ ] Task: Configure testing (Vitest)
-    - [ ] Write test: Verify vitest.config.ts exists
-    - [ ] Implement: Create js/vitest.config.ts
-    - [ ] Write test: Verify watch mode is disabled
-    - [ ] Implement: Configure Vitest to avoid watch mode (CI-aware)
-    - [ ] Write test: Verify test coverage is configured
-    - [ ] Implement: Set up coverage reporting for >80% threshold
-    - [ ] Write test: Verify test environment is Node.js
-    - [ ] Implement: Configure Vitest for Node.js environment
+- [x] Task: Configure testing (Vitest) [2892cd9]
+    - [x] Write test: Verify vitest.config.ts exists
+    - [x] Implement: Create js/vitest.config.ts
+    - [x] Write test: Verify watch mode is disabled
+    - [x] Implement: Configure Vitest to avoid watch mode (CI-aware)
+    - [x] Write test: Verify test coverage is configured
+    - [x] Implement: Set up coverage reporting for >80% threshold
+    - [x] Write test: Verify test environment is Node.js
+    - [x] Implement: Configure Vitest for Node.js environment
 
 - [ ] Task: Install and configure dependencies
     - [ ] Write test: Verify yargs is installed
