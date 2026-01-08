@@ -7,7 +7,7 @@ describe('CLI Integration', () => {
 
   it('should display version', () => {
     const output = execSync(`node ${cliPath} --version`).toString();
-    expect(output).toContain('1.0.0');
+    expect(output).toContain('0.0.3');
   });
 
   it('should display help', () => {

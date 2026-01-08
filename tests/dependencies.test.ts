@@ -12,8 +12,8 @@ describe('Dependencies', () => {
       expect(packageJson.devDependencies?.['@types/yargs']).toBeDefined();
     });
 
-    it('should have inquirer installed', () => {
-      expect(packageJson.dependencies?.inquirer).toBeDefined();
+    it('should have @inquirer/select installed', () => {
+      expect(packageJson.dependencies?.['@inquirer/select']).toBeDefined();
     });
 
     it('should have tsup installed', () => {

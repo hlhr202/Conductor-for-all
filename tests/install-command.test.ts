@@ -26,7 +26,7 @@ describe('Install Command', () => {
     // Verify flow
     expect(installUtils.validateProjectDirectory).toHaveBeenCalled();
     expect(promptModule.promptForAgent).toHaveBeenCalled();
-    expect(installUtils.createConductorDirectories).toHaveBeenCalledWith('/abs/path');
+    expect(installUtils.createConductorDirectories).toHaveBeenCalledWith('/abs/path', 'opencode');
     expect(installUtils.copyTemplateFiles).toHaveBeenCalledWith('/abs/path', 'opencode');
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('initialized successfully'));
   });
