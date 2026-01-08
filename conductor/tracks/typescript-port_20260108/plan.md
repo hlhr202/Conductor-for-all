@@ -14,13 +14,13 @@
     - [x] Write test: Create dist/ directory for compiled output
     - [x] Implement: Set up js/dist/ directory
 
-- [ ] Task: Configure TypeScript
-    - [ ] Write test: Verify tsconfig.json exists and has correct configuration
-    - [ ] Implement: Create js/tsconfig.json with strict mode enabled
-    - [ ] Write test: Verify TypeScript compiles without errors
-    - [ ] Implement: Configure tsconfig.json for Node.js and modern ES targets
-    - [ ] Write test: Verify type checking works correctly
-    - [ ] Implement: Enable strict null checks and no any types
+- [x] Task: Configure TypeScript [dfbc54c]
+    - [x] Write test: Verify tsconfig.json exists and has correct configuration
+    - [x] Implement: Create js/tsconfig.json with strict mode enabled
+    - [x] Write test: Verify TypeScript compiles without errors
+    - [x] Implement: Configure tsconfig.json for Node.js and modern ES targets
+    - [x] Write test: Verify type checking works correctly
+    - [x] Implement: Enable strict null checks and no any types
 
 - [ ] Task: Configure build tool (tsup)
     - [ ] Write test: Verify tsup.config.ts exists
