@@ -69,7 +69,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md) [checkpoint: b3b9844]
 
 
-## Phase 3: Agent Description Correction
+## Phase 3: Agent Description Correction [checkpoint: 029e2dd]
 
 - [x] Task: Correct opencode agent description in selection prompt [96e646b]
     - [ ] Write failing test for agent description
@@ -81,4 +81,4 @@
     - [ ] Update plan with commit SHA
     - [ ] Commit plan update
 
-- [~] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md) [checkpoint: 029e2dd]
