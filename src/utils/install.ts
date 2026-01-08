@@ -25,9 +25,22 @@ export async function validateProjectDirectory(targetDir: string, agentType: Age
 }
 
 export async function createConductorDirectories(targetDir: string, agentType: AgentType): Promise<void> {
-  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  let agentDir: string;
+  let commandsDir: string;
+
+  if (agentType === 'claude-code') {
+    agentDir = '.claude';
+    commandsDir = 'commands';
+  } else if (agentType === 'antigravity') {
+    agentDir = '.agent';
+    commandsDir = 'workflows';
+  } else {
+    agentDir = '.opencode';
+    commandsDir = 'commands';
+  }
+
   const agentPath = join(targetDir, agentDir); 
-  await ensureDir(join(agentPath, 'commands'));
+  await ensureDir(join(agentPath, commandsDir));
   await ensureDir(join(agentPath, 'conductor'));
 }
 
