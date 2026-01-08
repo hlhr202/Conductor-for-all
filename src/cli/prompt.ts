@@ -15,6 +15,11 @@ export async function promptForAgent(): Promise<AgentType> {
         value: 'claude-code',
         description: 'Anthropic-based coding assistant',
       },
+      {
+        name: 'Antigravity',
+        value: 'antigravity',
+        description: 'Advanced agentic coding assistant',
+      },
     ],
     default: 'opencode',
   });
