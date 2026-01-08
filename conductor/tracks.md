@@ -4,7 +4,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
-(No active tracks)
+- [x] **Track: Install Command Path and Agent Compatibility Improvements**
+  *Link: [./conductor/tracks/install-antigravity-support_20260108/](./conductor/tracks/install-antigravity-support_20260108/)*
 
 ## Archived Tracks
 
