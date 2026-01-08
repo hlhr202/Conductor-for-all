@@ -1,5 +1,6 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import { installHandler } from '../commands/install.js';
 
 export const cli = yargs(hideBin(process.argv))
   .scriptName('conductor')
@@ -14,8 +15,6 @@ export const cli = yargs(hideBin(process.argv))
         type: 'string',
       });
     },
-    (argv) => {
-      console.log('Install command called with path:', argv.path);
-    }
+    installHandler
   )
   .help();
