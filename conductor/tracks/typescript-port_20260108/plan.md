@@ -22,15 +22,15 @@
     - [x] Write test: Verify type checking works correctly
     - [x] Implement: Enable strict null checks and no any types
 
-- [ ] Task: Configure build tool (tsup)
-    - [ ] Write test: Verify tsup.config.ts exists
-    - [ ] Implement: Create js/tsup.config.ts for bundling
-    - [ ] Write test: Verify tsup builds to js/dist/
-    - [ ] Implement: Configure tsup to output to js/dist/
-    - [ ] Write test: Verify build output includes all necessary files
-    - [ ] Implement: Configure tsup to bundle templates and assets
-    - [ ] Write test: Verify ESM and CommonJS compatibility
-    - [ ] Implement: Configure tsup for dual module formats if needed
+- [x] Task: Configure build tool (tsup) [3fef749]
+    - [x] Write test: Verify tsup.config.ts exists
+    - [x] Implement: Create js/tsup.config.ts for bundling
+    - [x] Write test: Verify tsup builds to js/dist/
+    - [x] Implement: Configure tsup to output to js/dist/
+    - [x] Write test: Verify build output includes all necessary files
+    - [x] Implement: Configure tsup to bundle templates and assets
+    - [x] Write test: Verify ESM and CommonJS compatibility
+    - [x] Implement: Configure tsup for dual module formats if needed
 
 - [ ] Task: Configure testing (Vitest)
     - [ ] Write test: Verify vitest.config.ts exists
