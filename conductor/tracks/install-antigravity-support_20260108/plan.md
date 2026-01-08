@@ -16,7 +16,7 @@
 
 ## Phase 2: Antigravity Agent Support
 
-- [ ] Task: Add 'antigravity' to AgentType type definition
+- [x] Task: Add 'antigravity' to AgentType type definition [3022a38]
     - [ ] Write failing test for new agent type support
     - [ ] Implement: update AgentType in src/types.ts
     - [ ] Verify test passes
