@@ -52,15 +52,15 @@ describe('Template Copying for Antigravity', () => {
     );
 
     // Verify command creation
-    // Antigravity files should be .md (with hyphen) and in workflows directory
-    const expectedFilePath = join(expectedWorkflowDir, 'conductor-setup.md');
+    // Antigravity files should be .md (with colon) and in workflows directory
+    const expectedFilePath = join(expectedWorkflowDir, 'conductor:setup.md');
     
     // We expect fs.writeFile to have been called. 
     // However, existing implementation iterates over 5 commands, so checking for one is sufficient.
     const writeCalls = vi.mocked(fs.writeFile).mock.calls;
     
-    // Look for a call that writes to conductor-setup.md
-    const setupCall = writeCalls.find(call => (call[0] as string).endsWith('conductor-setup.md'));
+    // Look for a call that writes to conductor:setup.md
+    const setupCall = writeCalls.find(call => (call[0] as string).endsWith('conductor:setup.md'));
     
 
     
@@ -68,7 +68,7 @@ describe('Template Copying for Antigravity', () => {
         // Assert content was written
         // The Spec says:
         // FR2.4: For antigravity agent, perform string substitution on Markdown files
-        // FR2.5: Antigravity command file naming format: conductor-{cmd}.md
+        // FR2.5: Antigravity command file naming format: conductor:{cmd}.md
         
         // This test expects behavior DIFFERENT from existing implementation
         const content = setupCall[1] as string;

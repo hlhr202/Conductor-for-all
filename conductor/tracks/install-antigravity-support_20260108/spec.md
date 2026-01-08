@@ -34,7 +34,7 @@ Improve the `install` command to fix path handling and extend compatibility to s
 **FR2.3**: Antigravity commands use Markdown files (same structure as commands in dist/).
 **FR2.4**: For antigravity agent, perform string substitution on Markdown files:
 - Replace `__$$CODE_AGENT_INSTALL_PATH$$__` with relative install path (e.g., `.agent/conductor`)
-**FR2.5**: Antigravity command file naming format: `conductor-{cmd}.md` (e.g., `conductor-setup.md`, `conductor-newTrack.md`)
+**FR2.5**: Antigravity command file naming format: `conductor:{cmd}.md` (e.g., `conductor:setup.md`, `conductor:newTrack.md`)
 
 ### FR3: Agent Description Correction
 
@@ -65,7 +65,7 @@ Improve the `install` command to fix path handling and extend compatibility to s
 **AC3**: When running `conductor install` with antigravity agent:
 - User can select "Antigravity" from agent selection menu
 - `__$$CODE_AGENT_INSTALL_PATH$$__` in templates is replaced with `.agent/conductor` (relative path)
-- Commands are created in `.agent/workflows/` as `.md` files with naming format `conductor-{cmd}.md`
+- Commands are created in `.agent/workflows/` as `.md` files with naming format `conductor:{cmd}.md`
 - Templates are copied to `.agent/conductor/templates/`
 - String substitutions are applied to Markdown file content
 

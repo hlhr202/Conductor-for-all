@@ -31,6 +31,6 @@ describe('Validation for Antigravity', () => {
     // Verify it checked the correct path
     // .agent/conductor and .agent/workflows/conductor:setup.toml
     expect(fs.existsSync).toHaveBeenCalledWith(join(targetDir, '.agent', 'conductor'));
-    expect(fs.existsSync).toHaveBeenCalledWith(join(targetDir, '.agent', 'workflows', 'conductor-setup.md'));
+    expect(fs.existsSync).toHaveBeenCalledWith(join(targetDir, '.agent', 'workflows', 'conductor:setup.md'));
   });
 });
