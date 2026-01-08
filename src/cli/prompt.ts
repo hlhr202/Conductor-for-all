@@ -8,7 +8,7 @@ export async function promptForAgent(): Promise<AgentType> {
       {
         name: 'OpenCode',
         value: 'opencode',
-        description: 'Gemini-based coding assistant',
+        description: 'VS Code-based assistant',
       },
       {
         name: 'Claude Code',
