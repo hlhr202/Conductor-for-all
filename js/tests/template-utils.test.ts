@@ -27,8 +27,8 @@ describe('Template Substitution', () => {
 
   describe('Template Loader', () => {
     it('should load a template file', async () => {
-      const content = await loadTemplate('opencode/commands/conductor:setup.md');
-      expect(content).toContain('Conductor Setup');
+      const content = await loadTemplate('commands/setup.toml');
+      expect(content).toContain('description = "Scaffolds the project');
     });
 
     it('should throw if file missing', async () => {

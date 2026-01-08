@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile, stat } from 'fs/promises';
 import { join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,8 +13,27 @@ export function substituteVariables(template: string, variables: Record<string, 
   });
 }
 
+async function getTemplateRoot(): Promise<string> {
+  const candidates = [
+    join(__dirname, 'templates'), 
+    join(__dirname, '../templates'),
+    join(__dirname, '../../../gemini-conductor-codebase')
+  ];
+
+  for (const path of candidates) {
+    try {
+      if ((await stat(path)).isDirectory()) {
+         return path;
+      }
+    } catch {
+      continue;
+    }
+  }
+  throw new Error(`Template directory not found. Searched in: ${candidates.join(', ')}`);
+}
+
 export async function loadTemplate(templatePath: string): Promise<string> {
-  const rootDir = resolve(__dirname, '../../');
-  const fullPath = join(rootDir, 'templates', templatePath);
+  const rootDir = await getTemplateRoot();
+  const fullPath = join(rootDir, templatePath);
   return readFile(fullPath, 'utf-8');
 }

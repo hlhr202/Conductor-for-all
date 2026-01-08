@@ -61,24 +61,24 @@
 ## Phase 2: Template System
 
 - [x] Task: Design and create template structure
-    - [x] Write test: Verify template directories exist
-    - [x] Implement: Create template directory structure in js/templates/
-    - [x] Write test: Verify agent-specific template directories exist
-    - [x] Implement: Create templates for different agents (opencode, claude-code)
+    - [x] Write test: Verify template directories exist (Updated to use single source)
+    - [x] Implement: Use gemini-conductor-codebase as template source
+    - [x] Write test: Verify agent-specific template directories exist (Obsolete: single source)
+    - [x] Implement: Remove manual template creation
     - [x] Write test: Verify conductor command templates exist
-    - [x] Implement: Create templates for setup, newTrack, implement, status commands
+    - [x] Implement: Verify setup.toml and other commands in source
 
 - [x] Task: Create template files with variables
-    - [x] Write test: Verify setup.md template exists and has correct variables
-    - [x] Implement: Create js/templates/opencode/commands/conductor:setup.md with {agent_type} variable
-    - [x] Write test: Verify newTrack.md template exists and has correct variables
-    - [x] Implement: Create js/templates/opencode/commands/conductor:newTrack.md with {agent_type} variable
-    - [x] Write test: Verify implement.md template exists and has correct variables
-    - [x] Implement: Create js/templates/opencode/commands/conductor:implement.md with {agent_type} variable
-    - [x] Write test: Verify status.md template exists and has correct variables
-    - [x] Implement: Create js/templates/opencode/commands/conductor:status.md with {agent_type} variable
+    - [x] Write test: Verify setup.md template exists (Updated: verify setup.toml)
+    - [x] Implement: Use existing commands/setup.toml
+    - [x] Write test: Verify newTrack.md template exists (Updated: verify newTrack.toml)
+    - [x] Implement: Use existing commands/newTrack.toml
+    - [x] Write test: Verify implement.md template exists (Updated: verify implement.toml)
+    - [x] Implement: Use existing commands/implement.toml
+    - [x] Write test: Verify status.md template exists (Updated: verify status.toml)
+    - [x] Implement: Use existing commands/status.toml
     - [x] Write test: Verify conductor directory templates exist
-    - [x] Implement: Create templates for conductor/ directory files (tech-stack.md, workflow.md, etc.)
+    - [x] Implement: Use existing templates/ directory in source
 
 - [x] Task: Implement template variable substitution
     - [x] Write test: Verify variable substitution replaces {agent_type} correctly
@@ -92,15 +92,15 @@
 
 - [x] Task: Implement template loader
     - [x] Write test: Verify template file can be loaded from filesystem
-    - [x] Implement: Create loadTemplate function in js/src/utils/template.ts
+    - [x] Implement: Create loadTemplate function in js/src/utils/template.ts with multia-location search
     - [x] Write test: Verify template loader handles missing files
     - [x] Implement: Add error handling for missing template files
     - [x] Write test: Verify template loader returns string content
     - [x] Implement: Ensure loadTemplate returns properly formatted string
-    - [x] Write test: Verify template loader can load from different agent directories
-    - [x] Implement: Support loading templates from agent-specific paths
+    - [x] Write test: Verify template loader can load from different agent directories (Obsolete: single source)
+    - [x] Implement: Support loading templates from dist/templates or source
 
-- [~] Task: Conductor - User Manual Verification 'Template System' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Template System' (Protocol in workflow.md)
 
 ## Phase 3: CLI Infrastructure
 
