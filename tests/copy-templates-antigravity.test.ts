@@ -35,7 +35,7 @@ describe('Template Copying for Antigravity', () => {
 
   it('should copy templates and create TOML files for antigravity agent', async () => {
     vi.mocked(getTemplateRoot).mockResolvedValue('/mock/root');
-    const mockTomlContent = 'prompt = "Prompt content"';
+    const mockTomlContent = 'description = "Test Description"\nprompt = "Prompt content with __$$CODE_AGENT_INSTALL_PATH$$__ for {agent_type}"';
     vi.mocked(loadTemplate).mockResolvedValue(mockTomlContent);
 
     await copyTemplateFiles(targetDir, 'antigravity');
@@ -72,21 +72,13 @@ describe('Template Copying for Antigravity', () => {
         
         // This test expects behavior DIFFERENT from existing implementation
         const content = setupCall[1] as string;
-        // The mock loadTemplate returns 'prompt = "Prompt content"' (if we didn't mock smol-toml parse separately for this logic branch?)
-        // Wait, the current logic calls `parse(tomlContent)`.
-        // The NEW logic should skipping parsing for antigravity and just do substitution on `tomlContent` string.
+        expect(content).toContain('Prompt content');
+        expect(content).toContain('.agent/conductor');
+        expect(content).toContain('antigravity');
         
-        // Let's enforce that expectation:
-        // loadTemplate returns string.
-        // For antigravity, we process that string directly.
-        // So content should contain valid TOML with substitutions.
-        
-        // Let's assume the mock `loadTemplate` returns "prompt = ... {agent_type}"
-        
-        // Since I can't easily change the mock valid return for just one test without complex setup, 
-        // I will trust the "Implement" step to handle the specific String logic.
-        // Here I mainly verify the file path and that write happened.
-        // But checking content type is important.
+        // Assert description frontmatter
+        expect(content).toContain('---\ndescription: Test Description\n---');
+
     }
   });
 });

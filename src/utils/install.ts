@@ -104,6 +104,11 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
         let prompt = parsed.prompt;
         prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
         finalContent = substituteVariables(prompt, { agent_type: agentType });
+
+        if (parsed.description) {
+            finalContent = `---\ndescription: ${parsed.description}\n---\n${finalContent}`;
+        }
+
         fileName = `conductor:${cmd}.md`;
         
         await writeFile(join(targetCommandsDir, fileName), finalContent);
