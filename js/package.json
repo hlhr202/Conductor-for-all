@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Conductor spec-driven development CLI - TypeScript/Node.js version",
   "type": "module",
+  "bin": {
+    "conductor": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",

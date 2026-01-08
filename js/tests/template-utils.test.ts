@@ -14,9 +14,10 @@ describe('Template Substitution', () => {
     expect(result).toBe('Hi User');
   });
 
-  it('should handle missing variables by throwing error', () => {
+  it('should ignore missing variables', () => {
     const template = 'Hello {missing}';
-    expect(() => substituteVariables(template, {})).toThrow();
+    const result = substituteVariables(template, {});
+    expect(result).toBe('Hello {missing}');
   });
 
   it('should ignore unused variables in context', () => {

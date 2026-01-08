@@ -1,4 +1,5 @@
-import { existsSync, ensureDir, writeFile } from 'fs-extra';
+import fs from 'fs-extra';
+const { existsSync, ensureDir, writeFile } = fs;
 import { join } from 'path';
 import { parse } from 'smol-toml';
 import { loadTemplate, substituteVariables, getTemplateRoot } from './template.js';

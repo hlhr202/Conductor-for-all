@@ -9,10 +9,10 @@ export default defineConfig({
   clean: true,
   sourcemap: false,
   external: [],
-  bundle: false,
+  bundle: true,
   splitting: false,
   minify: false,
-  shims: false,
+  shims: true,
   target: 'node18',
   platform: 'node',
   onSuccess: async () => {

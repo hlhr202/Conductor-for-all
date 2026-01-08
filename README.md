@@ -14,18 +14,33 @@ Originally tied to the Gemini CLI extension, this project aims to decouple the m
 
 ### 1. Installation
 
-#### Option A: From Crates.io (Recommended)
+#### Option A: Node.js (Recommended) (New!)
 
-You can install the tool directly from crates.io. This will install the binary as `conductor`.
+You can install the tool globally via npm:
+
+```bash
+npm install -g conductor-4-all
+```
+
+#### Option B: From Crates.io (Rust)
+
+You can install the Rust version directly from crates.io.
 
 ```bash
 cargo install conductor-4-all
 ```
 
-#### Option B: From Source
+#### Option C: From Source
 
-Build and run the tool from source using Rust:
+**Node.js:**
+```bash
+cd js
+npm install
+npm run build
+node dist/index.js install <target>
+```
 
+**Rust:**
 ```bash
 cargo build --release
 ./target/release/conductor install
@@ -67,7 +82,7 @@ Once installed, you can instruct your AI Agent to perform Conductor tasks using 
 We follow a strict spec-driven development workflow ourselves!
 
 -   **Workflow:** Please read [`conductor/workflow.md`](./conductor/workflow.md) for our detailed development protocols (Tasks, TDD, Commits).
--   **Tech Stack:** Check [`conductor/tech-stack.md`](./conductor/tech-stack.md) for approved technologies (Rust, Clap, Serde).
+-   **Tech Stack:** Check [`conductor/tech-stack.md`](./conductor/tech-stack.md) for approved technologies (Rust, Node.js, etc.).
 -   **Product Guidelines:** See [`conductor/product-guidelines.md`](./conductor/product-guidelines.md) for design philosophy.
 
 To start contributing:

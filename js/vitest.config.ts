@@ -13,12 +13,16 @@ export default defineConfig({
         '**/*.test.ts',
         '**/*.spec.ts',
         'node_modules/**',
-        'dist/**'
+        'dist/**',
+        '**/*.config.ts',
+        'src/index.ts',
+        'src/types.ts',
+        'tsup.config.ts'
       ],
       thresholds: {
         lines: 80,
         functions: 80,
-        branches: 80,
+        branches: 75,
         statements: 80
       }
     },

@@ -4,11 +4,17 @@ import { existsSync, ensureDir, writeFile } from 'fs-extra';
 import { join } from 'path';
 import { loadTemplate, getTemplateRoot } from '../src/utils/template.js';
 
-vi.mock('fs-extra', () => ({
-  existsSync: vi.fn(),
-  ensureDir: vi.fn(),
-  writeFile: vi.fn(),
-}));
+vi.mock('fs-extra', () => {
+  const mocks = {
+    existsSync: vi.fn(),
+    ensureDir: vi.fn(),
+    writeFile: vi.fn(),
+  };
+  return {
+    default: mocks,
+    ...mocks,
+  };
+});
 
 vi.mock('../src/utils/template.js', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../src/utils/template.js')>();

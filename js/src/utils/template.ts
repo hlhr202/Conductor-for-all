@@ -9,11 +9,11 @@ export function substituteVariables(template: string, variables: Record<string, 
     if (Object.prototype.hasOwnProperty.call(variables, key)) {
       return variables[key];
     }
-    throw new Error(`Missing variable for substitution: ${key}`);
+    return match;
   });
 }
 
-async function getTemplateRoot(): Promise<string> {
+export async function getTemplateRoot(): Promise<string> {
   const candidates = [
     join(__dirname, 'templates'), 
     join(__dirname, '../templates'),
