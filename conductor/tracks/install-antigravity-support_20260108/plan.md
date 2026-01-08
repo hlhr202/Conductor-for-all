@@ -1,6 +1,6 @@
 # Implementation Plan: Install Command Path and Agent Compatibility Improvements
 
-## Phase 1: Path Handling Fix
+## Phase 1: Path Handling Fix [checkpoint: 42627b4]
 
 - [x] Task: Update installPath to use relative path instead of absolute path [92b583e]
     - [ ] Write failing test for path handling in copyTemplateFiles
