@@ -1,1 +1,3 @@
-export const placeholder = 'conductor-4-all';
+import { cli } from './cli/index.js';
+
+cli.parse();
