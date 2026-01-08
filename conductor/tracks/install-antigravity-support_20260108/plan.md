@@ -26,7 +26,7 @@
     - [ ] Update plan with commit SHA
     - [ ] Commit plan update
 
-- [ ] Task: Add antigravity option to agent selection prompt
+- [x] Task: Add antigravity option to agent selection prompt [3e35493]
     - [ ] Write failing test for agent selection with antigravity
     - [ ] Implement: update prompt.ts to include antigravity option
     - [ ] Verify test passes
