@@ -46,15 +46,24 @@ export async function createConductorDirectories(targetDir: string, agentType: A
 
 export async function copyTemplateFiles(targetDir: string, agentType: AgentType): Promise<void> {
   const commands = ['setup', 'newTrack', 'implement', 'status', 'revert'];
-  const agentDir = agentType === 'claude-code' ? '.claude' : '.opencode';
+  let agentDir: string;
+  let commandsDir: string;
+
+  if (agentType === 'claude-code') {
+    agentDir = '.claude';
+    commandsDir = 'commands';
+  } else if (agentType === 'antigravity') {
+    agentDir = '.agent';
+    commandsDir = 'workflows';
+  } else {
+    agentDir = '.opencode';
+    commandsDir = 'commands';
+  }
+
   const agentPath = join(targetDir, agentDir); 
-  const commandsDir = join(agentPath, 'commands');
+  const targetCommandsDir = join(agentPath, commandsDir);
 
   const templateRoot = await getTemplateRoot();
-  // __$$CODE_AGENT_INSTALL_PATH$$__ expects the path to the root of the install?
-  // "run ls __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/"
-  // If templateRoot is `gemini-conductor-codebase` (which has `templates/`),
-  // then CODE_AGENT_INSTALL_PATH should be templateRoot.
   const installPath = join(agentDir, 'conductor');
 
   // Copy templates to agent directory
@@ -69,21 +78,33 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
   for (const cmd of commands) {
     try {
         const tomlContent = await loadTemplate(`commands/${cmd}.toml`);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const parsed = parse(tomlContent) as any;
-        
-        if (!parsed.prompt) {
-            console.warn(`Warning: No prompt found in ${cmd}.toml`);
-            continue;
-        }
 
-        let prompt = parsed.prompt;
+        let finalContent: string;
+        let fileName: string;
+
+        if (agentType === 'antigravity') {
+             // For Antigravity, we keep it as TOML but substitute variables
+             let content = tomlContent.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
+             content = substituteVariables(content, { agent_type: agentType });
+             finalContent = content;
+             fileName = `conductor:${cmd}.toml`;
+        } else {
+             // For others, we parse TOML and extract 'prompt'
+             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+             const parsed = parse(tomlContent) as any;
+             
+             if (!parsed.prompt) {
+                 console.warn(`Warning: No prompt found in ${cmd}.toml`);
+                 continue;
+             }
+     
+             let prompt = parsed.prompt;
+             prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
+             finalContent = substituteVariables(prompt, { agent_type: agentType });
+             fileName = `conductor:${cmd}.md`;
+        }
         
-        prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
-        
-        const finalPrompt = substituteVariables(prompt, { agent_type: agentType });
-        
-        await writeFile(join(commandsDir, `conductor:${cmd}.md`), finalPrompt);
+        await writeFile(join(targetCommandsDir, fileName), finalContent);
     } catch (e) {
         console.warn(`Failed to process ${cmd}:`, e);
     }
