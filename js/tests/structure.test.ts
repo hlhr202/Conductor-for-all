@@ -3,7 +3,7 @@ import { existsSync, statSync } from 'fs';
 import { join } from 'path';
 
 describe('Project Structure Initialization', () => {
-  const testDir = join(process.cwd(), 'js');
+  const testDir = process.cwd();
 
   describe('js/ directory', () => {
     it('should exist', () => {

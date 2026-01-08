@@ -42,65 +42,65 @@
     - [x] Write test: Verify test environment is Node.js
     - [x] Implement: Configure Vitest for Node.js environment
 
-- [ ] Task: Install and configure dependencies
-    - [ ] Write test: Verify yargs is installed
-    - [ ] Implement: Add yargs to devDependencies
-    - [ ] Write test: Verify inquirer is installed
-    - [ ] Implement: Add inquirer to devDependencies
-    - [ ] Write test: Verify tsup is installed
-    - [ ] Implement: Add tsup to devDependencies
-    - [ ] Write test: Verify vitest is installed
-    - [ ] Implement: Add vitest to devDependencies
-    - [ ] Write test: Verify TypeScript types are installed
-    - [ ] Implement: Add @types/node and TypeScript dependencies
-    - [ ] Write test: Verify file system utilities are available
-    - [ ] Implement: Add fs-extra and @types/fs-extra for file operations
+- [x] Task: Install and configure dependencies
+    - [x] Write test: Verify yargs is installed
+    - [x] Implement: Add yargs to devDependencies
+    - [x] Write test: Verify inquirer is installed
+    - [x] Implement: Add inquirer to devDependencies
+    - [x] Write test: Verify tsup is installed
+    - [x] Implement: Add tsup to devDependencies
+    - [x] Write test: Verify vitest is installed
+    - [x] Implement: Add vitest to devDependencies
+    - [x] Write test: Verify TypeScript types are installed
+    - [x] Implement: Add @types/node and TypeScript dependencies
+    - [x] Write test: Verify file system utilities are available
+    - [x] Implement: Add fs-extra and @types/fs-extra for file operations
 
 - [ ] Task: Conductor - User Manual Verification 'Project Setup and Configuration' (Protocol in workflow.md)
 
 ## Phase 2: Template System
 
-- [ ] Task: Design and create template structure
-    - [ ] Write test: Verify template directories exist
-    - [ ] Implement: Create template directory structure in js/templates/
-    - [ ] Write test: Verify agent-specific template directories exist
-    - [ ] Implement: Create templates for different agents (opencode, claude-code)
-    - [ ] Write test: Verify conductor command templates exist
-    - [ ] Implement: Create templates for setup, newTrack, implement, status commands
+- [x] Task: Design and create template structure
+    - [x] Write test: Verify template directories exist
+    - [x] Implement: Create template directory structure in js/templates/
+    - [x] Write test: Verify agent-specific template directories exist
+    - [x] Implement: Create templates for different agents (opencode, claude-code)
+    - [x] Write test: Verify conductor command templates exist
+    - [x] Implement: Create templates for setup, newTrack, implement, status commands
 
-- [ ] Task: Create template files with variables
-    - [ ] Write test: Verify setup.md template exists and has correct variables
-    - [ ] Implement: Create js/templates/opencode/commands/conductor:setup.md with {agent_type} variable
-    - [ ] Write test: Verify newTrack.md template exists and has correct variables
-    - [ ] Implement: Create js/templates/opencode/commands/conductor:newTrack.md with {agent_type} variable
-    - [ ] Write test: Verify implement.md template exists and has correct variables
-    - [ ] Implement: Create js/templates/opencode/commands/conductor:implement.md with {agent_type} variable
-    - [ ] Write test: Verify status.md template exists and has correct variables
-    - [ ] Implement: Create js/templates/opencode/commands/conductor:status.md with {agent_type} variable
-    - [ ] Write test: Verify conductor directory templates exist
-    - [ ] Implement: Create templates for conductor/ directory files (tech-stack.md, workflow.md, etc.)
+- [x] Task: Create template files with variables
+    - [x] Write test: Verify setup.md template exists and has correct variables
+    - [x] Implement: Create js/templates/opencode/commands/conductor:setup.md with {agent_type} variable
+    - [x] Write test: Verify newTrack.md template exists and has correct variables
+    - [x] Implement: Create js/templates/opencode/commands/conductor:newTrack.md with {agent_type} variable
+    - [x] Write test: Verify implement.md template exists and has correct variables
+    - [x] Implement: Create js/templates/opencode/commands/conductor:implement.md with {agent_type} variable
+    - [x] Write test: Verify status.md template exists and has correct variables
+    - [x] Implement: Create js/templates/opencode/commands/conductor:status.md with {agent_type} variable
+    - [x] Write test: Verify conductor directory templates exist
+    - [x] Implement: Create templates for conductor/ directory files (tech-stack.md, workflow.md, etc.)
 
-- [ ] Task: Implement template variable substitution
-    - [ ] Write test: Verify variable substitution replaces {agent_type} correctly
-    - [ ] Implement: Create substituteVariables function in js/src/utils/template.ts
-    - [ ] Write test: Verify multiple variables are replaced in single template
-    - [ ] Implement: Extend substitution to handle multiple variables
-    - [ ] Write test: Verify variable substitution handles missing variables gracefully
-    - [ ] Implement: Add error handling for missing required variables
-    - [ ] Write test: Verify variable substitution with different agent types
-    - [ ] Implement: Test substitution with opencode and claude-code agent types
+- [x] Task: Implement template variable substitution
+    - [x] Write test: Verify variable substitution replaces {agent_type} correctly
+    - [x] Implement: Create substituteVariables function in js/src/utils/template.ts
+    - [x] Write test: Verify multiple variables are replaced in single template
+    - [x] Implement: Extend substitution to handle multiple variables
+    - [x] Write test: Verify variable substitution handles missing variables gracefully
+    - [x] Implement: Add error handling for missing required variables
+    - [x] Write test: Verify variable substitution with different agent types
+    - [x] Implement: Test substitution with opencode and claude-code agent types
 
-- [ ] Task: Implement template loader
-    - [ ] Write test: Verify template file can be loaded from filesystem
-    - [ ] Implement: Create loadTemplate function in js/src/utils/template.ts
-    - [ ] Write test: Verify template loader handles missing files
-    - [ ] Implement: Add error handling for missing template files
-    - [ ] Write test: Verify template loader returns string content
-    - [ ] Implement: Ensure loadTemplate returns properly formatted string
-    - [ ] Write test: Verify template loader can load from different agent directories
-    - [ ] Implement: Support loading templates from agent-specific paths
+- [x] Task: Implement template loader
+    - [x] Write test: Verify template file can be loaded from filesystem
+    - [x] Implement: Create loadTemplate function in js/src/utils/template.ts
+    - [x] Write test: Verify template loader handles missing files
+    - [x] Implement: Add error handling for missing template files
+    - [x] Write test: Verify template loader returns string content
+    - [x] Implement: Ensure loadTemplate returns properly formatted string
+    - [x] Write test: Verify template loader can load from different agent directories
+    - [x] Implement: Support loading templates from agent-specific paths
 
-- [ ] Task: Conductor - User Manual Verification 'Template System' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Template System' (Protocol in workflow.md)
 
 ## Phase 3: CLI Infrastructure
 

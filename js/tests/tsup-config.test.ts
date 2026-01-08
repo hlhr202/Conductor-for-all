@@ -4,7 +4,7 @@ import { join } from 'path';
 import { execSync } from 'child_process';
 
 describe('Tsup Build Configuration', () => {
-  const tsupConfigPath = join(process.cwd(), 'js', 'tsup.config.ts');
+  const tsupConfigPath = join(process.cwd(), 'tsup.config.ts');
 
   describe('tsup.config.ts', () => {
     it('should exist', () => {
@@ -25,12 +25,12 @@ describe('Tsup Build Configuration', () => {
   describe('Build output', () => {
     it('should build to js/dist/', () => {
       expect(() => {
-        execSync('cd js && npx tsup', { stdio: 'inherit' });
+        execSync('npx tsup', { stdio: 'inherit' });
       }).not.toThrow();
     });
 
     it('should create output files', () => {
-      const distDir = join(process.cwd(), 'js', 'dist');
+      const distDir = join(process.cwd(), 'dist');
       expect(existsSync(distDir)).toBe(true);
     });
   });

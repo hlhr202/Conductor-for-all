@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 describe('Vitest Configuration', () => {
-  const vitestConfigPath = join(process.cwd(), 'js', 'vitest.config.ts');
+  const vitestConfigPath = join(process.cwd(), 'vitest.config.ts');
 
   describe('vitest.config.ts', () => {
     it('should exist', () => {
