@@ -46,7 +46,7 @@
     - [ ] Update plan with commit SHA
     - [ ] Commit plan update
 
-- [ ] Task: Implement template copying logic for antigravity agent
+- [x] Task: Implement template copying logic for antigravity agent [24f270f]
     - [ ] Write failing test for antigravity template copying
     - [ ] Implement: update copyTemplateFiles to handle antigravity (TOML format, workflows dir)
     - [ ] Verify test passes
