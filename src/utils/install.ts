@@ -18,7 +18,7 @@ export async function validateProjectDirectory(targetDir: string, agentType: Age
      setupFile = join(targetDir, agentDir, 'commands', 'conductor:setup.md');
   } else if (agentType === 'antigravity') {
     agentDir = '.agent';
-    setupFile = join(targetDir, agentDir, 'workflows', 'conductor:setup.toml');
+    setupFile = join(targetDir, agentDir, 'workflows', 'conductor-setup.md');
   } else {
     agentDir = '.opencode';
     setupFile = join(targetDir, agentDir, 'commands', 'conductor:setup.md');
@@ -92,27 +92,36 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
         let finalContent: string;
         let fileName: string;
 
-        if (agentType === 'antigravity') {
-             // For Antigravity, we keep it as TOML but substitute variables
-             let content = tomlContent.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
-             content = substituteVariables(content, { agent_type: agentType });
-             finalContent = content;
-             fileName = `conductor:${cmd}.toml`;
-        } else {
-             // For others, we parse TOML and extract 'prompt'
-             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-             const parsed = parse(tomlContent) as any;
-             
-             if (!parsed.prompt) {
-                 console.warn(`Warning: No prompt found in ${cmd}.toml`);
-                 continue;
-             }
-     
-             let prompt = parsed.prompt;
-             prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
-             finalContent = substituteVariables(prompt, { agent_type: agentType });
-             fileName = `conductor:${cmd}.md`;
+    if (agentType === 'antigravity') {
+        // For Antigravity, we parse TOML, extract prompt, and write to .md
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const parsed = parse(tomlContent) as any;
+        
+        if (!parsed.prompt) {
+             console.warn(`Warning: No prompt found in ${cmd}.toml`);
+             continue;
         }
+
+        let prompt = parsed.prompt;
+        prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
+        finalContent = substituteVariables(prompt, { agent_type: agentType });
+        // Use hyphen for antigravity as per spec
+        fileName = `conductor-${cmd}.md`;
+    } else {
+         // For/claude/opencode, we parse TOML and extract 'prompt'
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         const parsed = parse(tomlContent) as any;
+         
+         if (!parsed.prompt) {
+             console.warn(`Warning: No prompt found in ${cmd}.toml`);
+             continue;
+         }
+ 
+         let prompt = parsed.prompt;
+         prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
+         finalContent = substituteVariables(prompt, { agent_type: agentType });
+         fileName = `conductor:${cmd}.md`;
+    }
         
         await writeFile(join(targetCommandsDir, fileName), finalContent);
     } catch (e) {
