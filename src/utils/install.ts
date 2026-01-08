@@ -42,7 +42,7 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
   // "run ls __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/"
   // If templateRoot is `gemini-conductor-codebase` (which has `templates/`),
   // then CODE_AGENT_INSTALL_PATH should be templateRoot.
-  const installPath = join(targetDir, agentDir, 'conductor');
+  const installPath = join(agentDir, 'conductor');
 
   // Copy templates to agent directory
   try {

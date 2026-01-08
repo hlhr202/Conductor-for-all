@@ -67,7 +67,7 @@ describe('Install Utils', () => {
       const content = writeCall[1] as string;
       expect(content).toContain('Hello opencode');
       // expect(content).toContain('/mock/install/path'); // Replaced by local path logic
-      expect(content).toContain('/mock/target/dir/.opencode/conductor');
+      expect(content).toContain('.opencode/conductor');
       expect(content).not.toContain('__$$CODE_AGENT_INSTALL_PATH$$__');
     });
   });
