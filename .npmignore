@@ -1,0 +1,23 @@
+# Source code
+src/
+tests/
+scripts/
+conductor/
+gemini-conductor-codebase/
+coverage/
+
+# Configuration files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+.gitignore
+.claude/
+.opencode/
+
+# Assets
+gemini-conductor-codebase.tar
+
+# Local files
+.DS_Store
+node_modules/
+package-lock.json
