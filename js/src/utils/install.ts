@@ -68,11 +68,4 @@ export async function copyTemplateFiles(targetDir: string, agentType: AgentType)
         console.warn(`Failed to process ${cmd}:`, e);
     }
   }
-
-  try {
-    const workflowContent = await loadTemplate('templates/workflow.md');
-    await writeFile(join(targetDir, 'conductor', 'workflow.md'), workflowContent);
-  } catch (e) {
-    console.warn('Failed to copy workflow.md:', e);
-  }
 }
