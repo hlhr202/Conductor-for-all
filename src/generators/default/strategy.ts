@@ -9,6 +9,7 @@ import type {
   ContentStrategyOptions, 
   FileStrategyOptions 
 } from '../types.js';
+import { normalizeWorkflowFilename } from '../utils.js';
 
 export class DefaultContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
@@ -35,7 +36,8 @@ export class DefaultContentStrategy implements ContentStrategy {
 export class DefaultFileStrategy implements FileStrategy {
   async write(options: FileStrategyOptions): Promise<void> {
     const { targetDir, agentDir, commandsDir, commandName, extension, content } = options;
-    const fileName = `conductor:${commandName}${extension}`;
+    const rawFileName = `conductor:${commandName}${extension}`;
+    const fileName = normalizeWorkflowFilename(rawFileName, commandsDir);
     await writeFile(join(targetDir, agentDir, commandsDir, fileName), content);
   }
 }
