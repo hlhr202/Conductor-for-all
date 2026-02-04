@@ -1,10 +1,11 @@
 import { parse } from 'smol-toml';
 import { substituteVariables } from '../../utils/template.js';
+import { normalizeWorkflowContent } from '../utils.js';
 import type { ContentStrategy, ContentStrategyOptions } from '../types.js';
 
 export class ClineContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
-    const { installPath, agentType, commandName } = options;
+    const { installPath, agentType, commandName, commandsDir } = options;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const parsed = parse(templateContent) as any;
 
@@ -17,7 +18,8 @@ export class ClineContentStrategy implements ContentStrategy {
     const finalContent = substituteVariables(prompt, { agent_type: agentType });
 
     const title = commandName ? commandName.charAt(0).toUpperCase() + commandName.slice(1) : 'Command';
-    return `# Conductor ${title}${parsed.description ? '\n\n' + parsed.description + '\n\n' : '\n\n'}${finalContent}`;
+    const content = `# Conductor ${title}${parsed.description ? '\n\n' + parsed.description + '\n\n' : '\n\n'}${finalContent}`;
+    return normalizeWorkflowContent(content, commandsDir);
   }
 }
 

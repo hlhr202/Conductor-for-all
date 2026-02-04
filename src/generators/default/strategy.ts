@@ -9,11 +9,11 @@ import type {
   ContentStrategyOptions, 
   FileStrategyOptions 
 } from '../types.js';
-import { normalizeWorkflowFilename } from '../utils.js';
+import { normalizeWorkflowContent, normalizeWorkflowFilename } from '../utils.js';
 
 export class DefaultContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
-    const { installPath, agentType } = options;
+    const { installPath, agentType, commandsDir } = options;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const parsed = parse(templateContent) as any;
 
@@ -25,11 +25,11 @@ export class DefaultContentStrategy implements ContentStrategy {
     prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
     const finalContent = substituteVariables(prompt, { agent_type: agentType });
 
-    if (parsed.description) {
-      return `---\ndescription: ${parsed.description}\n---\n${finalContent}`;
-    }
+    const content = parsed.description
+      ? `---\ndescription: ${parsed.description}\n---\n${finalContent}`
+      : finalContent;
 
-    return finalContent;
+    return normalizeWorkflowContent(content, commandsDir);
   }
 }
 

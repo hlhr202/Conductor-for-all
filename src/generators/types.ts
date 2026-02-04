@@ -3,6 +3,7 @@ import { InstallScope } from '../types.js';
 export interface ContentStrategyOptions {
   installPath: string;
   agentType: string;
+  commandsDir: string;
   fixedAgent?: string;
   commandName?: string;
 }
@@ -69,4 +70,3 @@ export interface AgentConfig {
   /** Optional filename for the Universal File Resolution Protocol (e.g., 'GEMINI.md', 'CLAUDE.md') */
   protocolFilename?: string;
 }
-
