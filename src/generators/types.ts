@@ -3,7 +3,6 @@ import { InstallScope } from '../types.js';
 export interface ContentStrategyOptions {
   installPath: string;
   agentType: string;
-  commandsDir: string;
   fixedAgent?: string;
   commandName?: string;
 }

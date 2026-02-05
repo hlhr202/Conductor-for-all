@@ -5,7 +5,7 @@ import type { ContentStrategy, ContentStrategyOptions } from '../types.js';
 
 export class ClineContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
-    const { installPath, agentType, commandName, commandsDir } = options;
+    const { installPath, agentType, commandName } = options;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const parsed = parse(templateContent) as any;
 
@@ -19,7 +19,7 @@ export class ClineContentStrategy implements ContentStrategy {
 
     const title = commandName ? commandName.charAt(0).toUpperCase() + commandName.slice(1) : 'Command';
     const content = `# Conductor ${title}${parsed.description ? '\n\n' + parsed.description + '\n\n' : '\n\n'}${finalContent}`;
-    return normalizeWorkflowContent(content, commandsDir);
+    return normalizeWorkflowContent(content);
   }
 }
 

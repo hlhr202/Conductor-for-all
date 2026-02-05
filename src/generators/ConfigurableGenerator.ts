@@ -23,8 +23,10 @@ export class ConfigurableGenerator implements AgentGenerator {
             throw new Error(`Target directory does not exist: ${targetDir}`);
         }
 
-        const { agentDir, commandsDir, displayName } = this.config;
-        const setupFileName = normalizeWorkflowFilename('conductor:setup.md', commandsDir);
+        const { agentDir, commandsDir, displayName, extension, agentType } = this.config;
+        const setupExtension = extension ?? '.md';
+        const baseSetupFileName = agentType === 'gemini' ? `setup${setupExtension}` : `conductor:setup${setupExtension}`;
+        const setupFileName = normalizeWorkflowFilename(baseSetupFileName);
         const setupFile = join(targetDir, agentDir, commandsDir, setupFileName);
         const conductorPath = join(targetDir, agentDir, 'conductor');
 
@@ -100,7 +102,6 @@ export class ConfigurableGenerator implements AgentGenerator {
                 const finalContent = contentStrategy.process(tomlContent, {
                     installPath,
                     agentType,
-                    commandsDir,
                     fixedAgent,
                     commandName: cmd
                 });

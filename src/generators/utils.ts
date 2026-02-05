@@ -1,21 +1,13 @@
-export function normalizeWorkflowFilename(fileName: string, commandsDir: string): string {
+export function normalizeWorkflowFilename(fileName: string): string {
   if (process.platform !== 'win32') {
-    return fileName;
-  }
-
-  if (!commandsDir.includes('workflows')) {
     return fileName;
   }
 
   return fileName.replace(/:/g, '_');
 }
 
-export function normalizeWorkflowContent(content: string, commandsDir: string): string {
+export function normalizeWorkflowContent(content: string): string {
   if (process.platform !== 'win32') {
-    return content;
-  }
-
-  if (!commandsDir.includes('workflows')) {
     return content;
   }
 

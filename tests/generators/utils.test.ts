@@ -21,20 +21,30 @@ describe('normalizeWorkflowFilename', () => {
     }
   });
 
-  it('replaces colons on Windows when commandsDir includes workflows', () => {
-    const result = normalizeWorkflowFilename('conductor:setup.md', 'workflows');
+  it('replaces colons on Windows', () => {
+    const result = normalizeWorkflowFilename('conductor:setup.md');
     expect(result).toBe('conductor_setup.md');
-  });
-
-  it('keeps filename on Windows when commandsDir does not include workflows', () => {
-    const result = normalizeWorkflowFilename('conductor:setup.md', 'commands');
-    expect(result).toBe('conductor:setup.md');
   });
 
   it('keeps filename on non-Windows platforms', () => {
     setPlatform('darwin');
-    const result = normalizeWorkflowFilename('conductor:setup.md', 'workflows');
+    const result = normalizeWorkflowFilename('conductor:setup.md');
     expect(result).toBe('conductor:setup.md');
+  });
+
+  it('replaces multiple colons on Windows', () => {
+    const result = normalizeWorkflowFilename('prefix:middle:suffix.md');
+    expect(result).toBe('prefix_middle_suffix.md');
+  });
+
+  it('returns unchanged filename without colons', () => {
+    const result = normalizeWorkflowFilename('conductor_setup.md');
+    expect(result).toBe('conductor_setup.md');
+  });
+
+  it('handles empty filename', () => {
+    const result = normalizeWorkflowFilename('');
+    expect(result).toBe('');
   });
 });
 
@@ -49,22 +59,33 @@ describe('normalizeWorkflowContent', () => {
     }
   });
 
-  it('replaces command references on Windows when commandsDir includes workflows', () => {
+  it('replaces command references on Windows', () => {
     const content = 'Run /conductor:setup then see conductor:implement.md.';
-    const result = normalizeWorkflowContent(content, 'workflows');
+    const result = normalizeWorkflowContent(content);
     expect(result).toBe('Run /conductor_setup then see conductor_implement.md.');
   });
 
-  it('keeps content on Windows when commandsDir does not include workflows', () => {
-    const content = 'Run /conductor:setup then see conductor:implement.md.';
-    const result = normalizeWorkflowContent(content, 'commands');
-    expect(result).toBe(content);
+  it('replaces command references with mixed separators', () => {
+    const content = 'Use /conductor:setup_2 and conductor:review.';
+    const result = normalizeWorkflowContent(content);
+    expect(result).toBe('Use /conductor_setup_2 and conductor_review.');
   });
 
   it('keeps content on non-Windows platforms', () => {
     setPlatform('linux');
     const content = 'Run /conductor:setup then see conductor:implement.md.';
-    const result = normalizeWorkflowContent(content, 'workflows');
+    const result = normalizeWorkflowContent(content);
     expect(result).toBe(content);
+  });
+
+  it('keeps content with non-matching conductor patterns', () => {
+    const content = 'Run conductor:setup? then see conductor:.';
+    const result = normalizeWorkflowContent(content);
+    expect(result).toBe('Run conductor_setup? then see conductor:.');
+  });
+
+  it('handles empty content', () => {
+    const result = normalizeWorkflowContent('');
+    expect(result).toBe('');
   });
 });

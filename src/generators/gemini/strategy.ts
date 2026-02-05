@@ -13,7 +13,7 @@ import { normalizeWorkflowContent, normalizeWorkflowFilename } from '../utils.js
 
 export class GeminiContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
-    const { installPath, agentType, commandsDir } = options;
+    const { installPath, agentType } = options;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const parsed = parse(templateContent) as any;
 
@@ -24,7 +24,7 @@ export class GeminiContentStrategy implements ContentStrategy {
     // Gemini preserves the TOML structure
     const content = templateContent.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
     const substituted = substituteVariables(content, { agent_type: agentType });
-    return normalizeWorkflowContent(substituted, commandsDir);
+    return normalizeWorkflowContent(substituted);
   }
 }
 
@@ -33,7 +33,7 @@ export class GeminiFileStrategy implements FileStrategy {
     const { targetDir, agentDir, commandsDir, commandName, extension, content } = options;
     // For Gemini, we remove the 'conductor:' prefix as per new spec
     const rawFileName = `${commandName}${extension}`;
-    const fileName = normalizeWorkflowFilename(rawFileName, commandsDir);
+    const fileName = normalizeWorkflowFilename(rawFileName);
     await writeFile(join(targetDir, agentDir, commandsDir, fileName), content);
   }
 }
