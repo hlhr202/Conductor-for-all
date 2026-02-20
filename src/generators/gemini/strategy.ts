@@ -9,6 +9,7 @@ import type {
   ContentStrategyOptions, 
   FileStrategyOptions 
 } from '../types.js';
+import { normalizeWorkflowContent, normalizeWorkflowFilename } from '../utils.js';
 
 export class GeminiContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
@@ -22,7 +23,8 @@ export class GeminiContentStrategy implements ContentStrategy {
 
     // Gemini preserves the TOML structure
     const content = templateContent.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
-    return substituteVariables(content, { agent_type: agentType });
+    const substituted = substituteVariables(content, { agent_type: agentType });
+    return normalizeWorkflowContent(substituted);
   }
 }
 
@@ -30,7 +32,8 @@ export class GeminiFileStrategy implements FileStrategy {
   async write(options: FileStrategyOptions): Promise<void> {
     const { targetDir, agentDir, commandsDir, commandName, extension, content } = options;
     // For Gemini, we remove the 'conductor:' prefix as per new spec
-    const fileName = `${commandName}${extension}`;
+    const rawFileName = `${commandName}${extension}`;
+    const fileName = normalizeWorkflowFilename(rawFileName);
     await writeFile(join(targetDir, agentDir, commandsDir, fileName), content);
   }
 }

@@ -69,4 +69,3 @@ export interface AgentConfig {
   /** Optional filename for the Universal File Resolution Protocol (e.g., 'GEMINI.md', 'CLAUDE.md') */
   protocolFilename?: string;
 }
-

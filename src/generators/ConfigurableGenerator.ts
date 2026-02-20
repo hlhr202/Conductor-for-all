@@ -6,6 +6,7 @@ import type { AgentGenerator, AgentConfig } from './types.js';
 import type { InstallScope } from '../types.js';
 import { getTemplateRoot, loadTemplate } from '../utils/template.js';
 import { defaultContentStrategy, defaultFileStrategy } from './default/index.js';
+import { normalizeWorkflowFilename } from './utils.js';
 
 const { existsSync, ensureDir, writeFile, copy } = fs;
 
@@ -22,8 +23,11 @@ export class ConfigurableGenerator implements AgentGenerator {
             throw new Error(`Target directory does not exist: ${targetDir}`);
         }
 
-        const { agentDir, commandsDir, displayName } = this.config;
-        const setupFile = join(targetDir, agentDir, commandsDir, 'conductor:setup.md');
+        const { agentDir, commandsDir, displayName, extension, agentType } = this.config;
+        const setupExtension = extension ?? '.md';
+        const baseSetupFileName = agentType === 'gemini' ? `setup${setupExtension}` : `conductor:setup${setupExtension}`;
+        const setupFileName = normalizeWorkflowFilename(baseSetupFileName);
+        const setupFile = join(targetDir, agentDir, commandsDir, setupFileName);
         const conductorPath = join(targetDir, agentDir, 'conductor');
 
         if (existsSync(conductorPath) && existsSync(setupFile)) {

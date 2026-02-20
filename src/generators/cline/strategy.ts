@@ -1,5 +1,6 @@
 import { parse } from 'smol-toml';
 import { substituteVariables } from '../../utils/template.js';
+import { normalizeWorkflowContent } from '../utils.js';
 import type { ContentStrategy, ContentStrategyOptions } from '../types.js';
 
 export class ClineContentStrategy implements ContentStrategy {
@@ -17,7 +18,8 @@ export class ClineContentStrategy implements ContentStrategy {
     const finalContent = substituteVariables(prompt, { agent_type: agentType });
 
     const title = commandName ? commandName.charAt(0).toUpperCase() + commandName.slice(1) : 'Command';
-    return `# Conductor ${title}${parsed.description ? '\n\n' + parsed.description + '\n\n' : '\n\n'}${finalContent}`;
+    const content = `# Conductor ${title}${parsed.description ? '\n\n' + parsed.description + '\n\n' : '\n\n'}${finalContent}`;
+    return normalizeWorkflowContent(content);
   }
 }
 

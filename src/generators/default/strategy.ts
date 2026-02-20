@@ -9,6 +9,7 @@ import type {
   ContentStrategyOptions, 
   FileStrategyOptions 
 } from '../types.js';
+import { normalizeWorkflowContent, normalizeWorkflowFilename } from '../utils.js';
 
 export class DefaultContentStrategy implements ContentStrategy {
   process(templateContent: string, options: ContentStrategyOptions): string | null {
@@ -24,18 +25,19 @@ export class DefaultContentStrategy implements ContentStrategy {
     prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);
     const finalContent = substituteVariables(prompt, { agent_type: agentType });
 
-    if (parsed.description) {
-      return `---\ndescription: ${parsed.description}\n---\n${finalContent}`;
-    }
+    const content = parsed.description
+      ? `---\ndescription: ${parsed.description}\n---\n${finalContent}`
+      : finalContent;
 
-    return finalContent;
+    return normalizeWorkflowContent(content);
   }
 }
 
 export class DefaultFileStrategy implements FileStrategy {
   async write(options: FileStrategyOptions): Promise<void> {
     const { targetDir, agentDir, commandsDir, commandName, extension, content } = options;
-    const fileName = `conductor:${commandName}${extension}`;
+    const rawFileName = `conductor:${commandName}${extension}`;
+    const fileName = normalizeWorkflowFilename(rawFileName);
     await writeFile(join(targetDir, agentDir, commandsDir, fileName), content);
   }
 }
