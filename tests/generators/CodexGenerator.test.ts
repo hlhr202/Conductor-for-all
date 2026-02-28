@@ -2,11 +2,13 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CodexGenerator } from '../../src/generators/index.js';
 import fs from 'fs-extra';
 import { homedir } from 'os';
+import select from '@inquirer/select';
 
 vi.mock('fs-extra');
 vi.mock('os', () => ({
     homedir: vi.fn(),
 }));
+vi.mock('@inquirer/select');
 
 vi.mock('../../src/utils/template.js', async (importOriginal) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,7 +30,8 @@ describe('CodexGenerator', () => {
         vi.resetAllMocks();
         generator = new CodexGenerator();
         (getTemplateRoot as any).mockResolvedValue('/mock/template/root');
-        (fs.existsSync as any).mockReturnValue(false); 
+        (fs.existsSync as any).mockReturnValue(false);
+        (select as any).mockResolvedValue(true);
     });
 
     describe('validate', () => {
