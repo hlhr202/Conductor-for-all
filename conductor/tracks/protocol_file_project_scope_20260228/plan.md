@@ -22,14 +22,14 @@
     - [x] Run full test suite: `pnpm test`
     - [x] Verify coverage meets >80% threshold
 
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Final Verification
 
-- [ ] Task: Manual end-to-end testing
-    - [ ] Build the project: `pnpm build`
-    - [ ] Test with Codex generator + global scope: verify AGENTS.md appears in project root
-    - [ ] Test with Codex generator + project scope: verify AGENTS.md appears in project root
-    - [ ] Test overwrite prompt behavior
+- [x] Task: Manual end-to-end testing
+    - [x] Build the project: `pnpm build`
+    - [x] Test with Codex generator + global scope: verify AGENTS.md appears in project root
+    - [x] Test with Codex generator + project scope: verify AGENTS.md appears in project root
+    - [x] Test overwrite prompt behavior
 
-- [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
