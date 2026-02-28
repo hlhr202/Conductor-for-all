@@ -1,0 +1,8 @@
+{
+  "track_id": "protocol_file_project_scope_20260228",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-02-28T00:00:00Z",
+  "updated_at": "2026-02-28T00:00:00Z",
+  "description": "Fix bug where AGENTS.md protocol file is written to wrong location when global scope is selected"
+}

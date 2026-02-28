@@ -7,6 +7,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Archived Tracks
 
+- [x] **Track: Protocol File Project-Scoped Output**
+  *Link: [./conductor/archive/protocol_file_project_scope_20260228/](./conductor/archive/protocol_file_project_scope_20260228/)*
+
 - [x] **Track: Add Review Command Support to All Agent Generators**
   *Link: [./conductor/archive/review_command_20260130/](./conductor/archive/review_command_20260130/)* <!-- status: complete -->
 

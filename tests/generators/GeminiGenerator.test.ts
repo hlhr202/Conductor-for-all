@@ -3,8 +3,10 @@ import { GeminiGenerator } from '../../src/generators/index.js';
 import fs from 'fs-extra';
 import { parse } from 'smol-toml';
 import { join } from 'path';
+import select from '@inquirer/select';
 
 vi.mock('fs-extra');
+vi.mock('@inquirer/select');
 
 vi.mock('../../src/utils/template.js', async (importOriginal) => {
     const actual = await importOriginal() as Record<string, unknown>;
@@ -26,6 +28,7 @@ describe('GeminiGenerator', () => {
         generator = new GeminiGenerator();
         (getTemplateRoot as ReturnType<typeof vi.fn>).mockResolvedValue('/mock/template/root');
         (fs.existsSync as ReturnType<typeof vi.fn>).mockReturnValue(false);
+        (select as ReturnType<typeof vi.fn>).mockResolvedValue(true);
     });
 
     describe('validate', () => {
