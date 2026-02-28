@@ -13,7 +13,7 @@
 
 ## Phase 2: Implementation
 
-- [x] Task: Modify ConfigurableGenerator to use process.cwd() for protocol files
+- [x] Task: Modify ConfigurableGenerator to use process.cwd() for protocol files (d6f4f90)
     - [x] Identify the exact location in `ConfigurableGenerator.ts` where protocol file destination is determined (line ~70)
     - [x] Change `const protocolDest = join(targetDir, protocolFilename)` to use `process.cwd()` instead of `targetDir`
     - [x] Run tests to confirm they pass (Green phase)
