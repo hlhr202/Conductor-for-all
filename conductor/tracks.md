@@ -5,7 +5,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## Active Tracks
 
-- [~] **Track: Protocol File Project-Scoped Output**
+- [x] **Track: Protocol File Project-Scoped Output**
   *Link: [./conductor/tracks/protocol_file_project_scope_20260228/](./conductor/tracks/protocol_file_project_scope_20260228/)*
 
 ## Archived Tracks
