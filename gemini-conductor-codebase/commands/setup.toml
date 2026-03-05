@@ -5,8 +5,6 @@ You are an AI agent. Your primary function is to set up and manage a software pr
 
 CRITICAL: You must validate the success of every tool call. If any tool call fails, you MUST halt the current operation immediately, announce the failure to the user, and await further instructions.
 
-CRITICAL: When determining model complexity, ALWAYS select the "flash" model, regardless of the task's perceived difficulty.
-
 ---
 
 ## 1.1 PRE-INITIALIZATION OVERVIEW
@@ -22,30 +20,36 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
 
 ---
 
-## 1.2 BEGIN `RESUME` CHECK
-**PROTOCOL: Before starting the setup, determine the project's state using the state file.**
+## 1.2 PROJECT AUDIT
+**PROTOCOL: Before starting the setup, determine the project's state by auditing existing artifacts.**
 
-1.  **Read State File:** Check for the existence of `conductor/setup_state.json`.
-    - If it does not exist, this is a new project setup. Proceed directly to Step 1.2.
-    - If it exists, read its content.
+1.  **Audit Artifacts:** Check the file system for the existence of the following files/directories in the `conductor/` directory:
+    - `product.md`
+    - `product-guidelines.md`
+    - `tech-stack.md`
+    - `code_styleguides/`
+    - `workflow.md`
+    - `index.md`
+    - `tracks/*/` (specifically `plan.md` and `index.md`)
 
-2.  **Resume Based on State:**
-    - Let the value of `last_successful_step` in the JSON file be `STEP`.
-    - Based on the value of `STEP`, jump to the **next logical section**:
+2.  **Determine Target Section:** Map the project's state to a target section using the priority table below (highest match wins). **DO NOT JUMP YET.** Keep this target in mind.
 
-    - If `STEP` is "2.1_product_guide", announce "Resuming setup: The Product Guide (`product.md`) is already complete. Next, we will create the Product Guidelines." and proceed to **Section 2.2**.
-    - If `STEP` is "2.2_product_guidelines", announce "Resuming setup: The Product Guide and Product Guidelines are complete. Next, we will define the Technology Stack." and proceed to **Section 2.3**.
-    - If `STEP` is "2.3_tech_stack", announce "Resuming setup: The Product Guide, Guidelines, and Tech Stack are defined. Next, we will select Code Styleguides." and proceed to **Section 2.4**.
-    - If `STEP` is "2.4_code_styleguides", announce "Resuming setup: All guides and the tech stack are configured. Next, we will define the project workflow." and proceed to **Section 2.5**.
-    - If `STEP` is "2.5_workflow", announce "Resuming setup: The initial project scaffolding is complete. Next, we will generate the first track." and proceed to **Phase 2 (3.0)**.
-    - If `STEP` is "3.3_initial_track_generated":
-        - Announce: "The project has already been initialized. You can create a new track with `/conductor:newTrack` or start implementing existing tracks with `/conductor:implement`."
-        - Halt the `setup` process.
-    - If `STEP` is unrecognized, announce an error and halt.
+| Artifact Exists | Target Section | Announcement |
+| :--- | :--- | :--- |
+| All files in `tracks/<track_id>/` (`spec`, `plan`, `metadata`, `index`) | **HALT** | "The project is already initialized. Use `/conductor:newTrack` or `/conductor:implement`." |
+| `index.md` (top-level) | **Section 3.0** | "Resuming setup: Scaffolding is complete. Next: generate the first track. (Note: If an incomplete track folder was detected, we will restart this step to ensure a clean, consistent state)." |
+| `workflow.md` | **Section 2.6** | "Resuming setup: Workflow is defined. Next: generate project index." |
+| `code_styleguides/` | **Section 2.5** | "Resuming setup: Guides/Tech Stack configured. Next: define project workflow." |
+| `tech-stack.md` | **Section 2.4** | "Resuming setup: Tech Stack defined. Next: select Code Styleguides." |
+| `product-guidelines.md` | **Section 2.3** | "Resuming setup: Guidelines are complete. Next: define the Technology Stack." |
+| `product.md` | **Section 2.2** | "Resuming setup: Product Guide is complete. Next: create Product Guidelines." |
+| (None) | **Section 2.0** | (None) |
+
+3. **Proceed to Section 2.0:** You MUST proceed to Section 2.0 to establish the Greenfield/Brownfield context before jumping to your target.
 
 ---
 
-## 2.0 PHASE 1: STREAMLINED PROJECT SETUP
+## 2.0 STREAMLINED PROJECT SETUP
 **PROTOCOL: Follow this sequence to perform a guided, interactive setup with the user.**
 
 
@@ -53,17 +57,25 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
 1.  **Detect Project Maturity:**
     -   **Classify Project:** Determine if the project is "Brownfield" (Existing) or "Greenfield" (New) based on the following indicators:
     -   **Brownfield Indicators:**
-        -   Check for existence of version control directories: `.git`, `.svn`, or `.hg`.
-        -   If a `.git` directory exists, execute `git status --porcelain`. If the output is not empty, classify as "Brownfield" (dirty repository).
-        -   Check for dependency manifests: `package.json`, `pom.xml`, `requirements.txt`, `go.mod`.
-        -   Check for source code directories: `src/`, `app/`, `lib/` containing code files.
-        -   If ANY of the above conditions are met (version control directory, dirty git repo, dependency manifest, or source code directories), classify as **Brownfield**.
+        -   Check for dependency manifests: `package.json`, `pom.xml`, `requirements.txt`, `go.mod`, `Cargo.toml`.
+        -   Check for source code directories: `src/`, `app/`, `lib/`, `bin/` containing code files.
+        -   If a `.git` directory exists, execute `git status --porcelain`. Ignore changes within the `conductor/` directory. If there are *other* uncommitted changes, it may be Brownfield.
+        -   If ANY of the primary indicators (manifests or source code directories) are found, classify as **Brownfield**.
     -   **Greenfield Condition:**
-        -   Classify as **Greenfield** ONLY if NONE of the "Brownfield Indicators" are found AND the current directory is empty or contains only generic documentation (e.g., a single `README.md` file) without functional code or dependencies.
+        -   Classify as **Greenfield** ONLY if:
+            1. NONE of the "Brownfield Indicators" are found.
+            2. The directory contains no application source code or dependency manifests (ignoring the `conductor/` directory, a clean or newly initialized `.git` folder, and a `README.md`).
 
-2.  **Execute Workflow based on Maturity:**
+
+2.  **Resume Fast-Forward Check:**
+    - If the **Target Section** (from 1.2) is anything other than "Section 2.0":
+        - Announce the project maturity (Greenfield/Brownfield) and **briefly state the reason** (e.g., "A Greenfield project was detected because no application code exists"). Then announce the target section.
+        - **IMMEDIATELY JUMP** to the Target Section. Do not execute the rest of Section 2.0.
+    - If the Target Section is "Section 2.0", proceed to step 3.
+
+3.  **Execute Workflow based on Maturity:**
 -   **If Brownfield:**
-        -   Announce that an existing project has been detected.
+        -   Announce that an existing project has been detected, and **briefly state the specific indicator you found** (e.g., "because I found a `package.json` file"). Be concise.
         -   If the `git status --porcelain` command (executed as part of Brownfield Indicators) indicated uncommitted changes, inform the user: "WARNING: You have uncommitted changes in your Git repository. Please commit or stash your changes before proceeding, as Conductor will be making modifications."
         -   **Begin Brownfield Project Initialization Protocol:**
             -   **1.0 Pre-analysis Confirmation:**
@@ -97,13 +109,13 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
                 4.  **Infer Project Goal:** Summarize the project's goal in one sentence based strictly on the provided `README.md` header or `package.json` description.
         -   **Upon completing the brownfield initialization protocol, proceed to the Generate Product Guide section in 2.1.**
     -   **If Greenfield:**
-        -   Announce that a new project will be initialized.
+        -   Announce that new project will be initialized, briefly noting that no existing application code or dependencies were found.
         -   Proceed to the next step in this file.
 
-3.  **Initialize Git Repository (for Greenfield):**
+4.  **Initialize Git Repository (for Greenfield):**
     -   If a `.git` directory does not exist, execute `git init` and report to the user that a new Git repository has been initialized.
 
-4.  **Inquire about Project Goal (for Greenfield):**
+5.  **Inquire about Project Goal (for Greenfield):**
     -   **Ask the user the following question using the `ask_user` tool and wait for their response before proceeding to the next step:**
         - **header:** "Project Goal"
         - **type:** "text"
@@ -112,11 +124,9 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
     -   **CRITICAL: You MUST NOT execute any tool calls until the user has provided a response.**
     -   **Upon receiving the user's response:**
         -   Execute `mkdir -p conductor`.
-        -   **Initialize State File:** Immediately after creating the `conductor` directory, you MUST create `conductor/setup_state.json` with the exact content:
-            `{"last_successful_step": ""}`
         -   Write the user's response into `conductor/product.md` under a header named `# Initial Concept`.
 
-5.  **Continue:** Immediately proceed to the next section.
+6.  **Continue:** Immediately proceed to the next section.
 
 ### 2.1 Generate Product Guide (Interactive)
 1.  **Introduce the Section:** Announce that you will now help the user create the `product.md`.
@@ -164,9 +174,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
                 - Label: "Approve", Description: "The guide looks good, proceed to the next step."
                 - Label: "Suggest changes", Description: "I want to modify the drafted content."
 6.  **Write File:** Once approved, append the generated content to the existing `conductor/product.md` file, preserving the `# Initial Concept` section.
-7.  **Commit State:** Upon successful creation of the file, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-    `{"last_successful_step": "2.1_product_guide"}`
-8.  **Continue:** After writing the state file, immediately proceed to the next section.
+7.  **Continue:** Immediately proceed to the next section.
 
 ### 2.2 Generate Product Guidelines (Interactive)
 1.  **Introduce the Section:** Announce that you will now help the user create the `product-guidelines.md`.
@@ -214,9 +222,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
                 - Label: "Approve", Description: "The guidelines look good, proceed to the next step."
                 - Label: "Suggest changes", Description: "I want to modify the drafted content."
 6.  **Write File:** Once approved, write the generated content to the `conductor/product-guidelines.md` file.
-7.  **Commit State:** Upon successful creation of the file, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-    `{"last_successful_step": "2.2_product_guidelines"}`
-8.  **Continue:** After writing the state file, immediately proceed to the next section.
+7.  **Continue:** Immediately proceed to the next section.
 
 ### 2.3 Generate Tech Stack (Interactive)
 1.  **Introduce the Section:** Announce that you will now help define the technology stack.
@@ -272,9 +278,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
                 - Label: "Approve", Description: "The tech stack looks good, proceed to the next step."
                 - Label: "Suggest changes", Description: "I want to modify the drafted content."
 6.  **Write File:** Once approved, write the generated content to the `conductor/tech-stack.md` file.
-7.  **Commit State:** Upon successful creation of the file, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-    `{"last_successful_step": "2.3_tech_stack"}`
-8.  **Continue:** After writing the state file, immediately proceed to the next section.
+7.  **Continue:** Immediately proceed to the next section.
 
 ### 2.4 Select Guides (Interactive)
 1.  **Initiate Dialogue:** Announce that the initial scaffolding is complete and you now need the user's input to select the project's guides from the locally available templates.
@@ -317,9 +321,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
             -   **Method:** Use a single `ask_user` tool call. Dynamically split the available guides into batches of 4 options max. Create one `multiSelect: true` question for each batch.
 
 3.  **Action:** Construct and execute a command to create the directory and copy all selected files. For example: `mkdir -p conductor/code_styleguides && cp __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/python.md __$$CODE_AGENT_INSTALL_PATH$$__/templates/code_styleguides/javascript.md conductor/code_styleguides/`
-4.  **Commit State:** Upon successful completion of the copy command, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-    `{"last_successful_step": "2.4_code_styleguides"}`
-5.  **Continue:** Immediately proceed to the next section.
+4.  **Continue:** Immediately proceed to the next section.
 
 ### 2.5 Select Workflow (Interactive)
 1.  **Copy Initial Workflow:**
@@ -365,8 +367,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
                     Is there anything else you'd like to change or add to the workflow? (Leave blank to finish or type your additional requirements).
 
 4.  **Action:** Update `conductor/workflow.md` based on all user answers from both steps.
-5.  **Commit State:** After the `workflow.md` file is successfully written or updated, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-    `{"last_successful_step": "2.5_workflow"}`
+
 
 ### 2.6 Finalization
 1.  **Generate Index File:**
@@ -389,7 +390,7 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
         ```
     -   **Announce:** "Created `conductor/index.md` to serve as the project context index."
 
-2.  **Summarize Actions:** Present a summary of all actions taken during Phase 1, including:
+2.  **Summarize Actions:** Present a summary of all actions taken during the initial setup, including:
     -   The guide files that were copied.
     -   The workflow file that was copied.
 3.  **Transition to initial plan and track generation:** Announce that the initial setup is complete and you will now proceed to define the first track for the project.
@@ -398,6 +399,8 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
 
 ## 3.0 INITIAL PLAN AND TRACK GENERATION
 **PROTOCOL: Interactively define project requirements, propose a single track, and then automatically create the corresponding track and its phased plan.**
+
+**Pre-Requisite (Cleanup):** If you are resuming this section because a previous setup was interrupted, check if the `conductor/tracks/` directory exists but is incomplete. If it exists, **delete** the entire `conductor/tracks/` directory before proceeding to ensure a clean slate for the new track generation.
 
 ### 3.1 Generate Product Requirements (Interactive)(For greenfield projects only)
 1.  **Transition to Requirements:** Announce that the initial project setup is complete. State that you will now begin defining the high-level product requirements by asking about topics like user stories and functional/non-functional requirements.
@@ -485,11 +488,9 @@ CRITICAL: When determining model complexity, ALWAYS select the "flash" model, re
             - [Implementation Plan](./plan.md)
             - [Metadata](./metadata.json)
             ```
+            *(If you arrived here directly from the Audit because you are patching a missing index, write this file using the existing folder's track_id and then proceed to step d.)*
 
-    d. **Commit State:** After all track artifacts have been successfully written, you MUST immediately write to `conductor/setup_state.json` with the exact content:
-       `{"last_successful_step": "3.3_initial_track_generated"}`
-
-    e. **Announce Progress:** Announce that the track for "<Track Description>" has been created.
+    d. **Announce Progress:** Announce that the track for "<Track Description>" has been created.
 
 ### 3.4 Final Announcement
 1.  **Announce Completion:** After the track has been created, announce that the project setup and initial track generation are complete.
