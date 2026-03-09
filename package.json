@@ -45,5 +45,8 @@
     "gradient-string": "^3.0.0",
     "smol-toml": "^1.6.0",
     "yargs": "^18.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

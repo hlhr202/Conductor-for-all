@@ -8,3 +8,6 @@ coverage
 .opencode
 .windsurf
 .gemini
+
+# npmrc
+.npmrc

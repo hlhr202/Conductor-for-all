@@ -23,3 +23,6 @@ gemini-conductor-codebase.tar
 .DS_Store
 node_modules/
 package-lock.json
+
+# npmrc
+.npmrc
