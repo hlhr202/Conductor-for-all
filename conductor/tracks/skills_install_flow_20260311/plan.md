@@ -14,24 +14,24 @@
     - [ ] Refactor: align prompt naming and types with the existing CLI prompt patterns
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Add install mode branching' (Protocol in workflow.md)
 
-## Phase 2: Build skill generation architecture
+## Phase 2: Build skill generation architecture [checkpoint: af7c5c4]
 - [x] Task: Add a dedicated skills generator module [4306080]
     - [ ] Write failing test: verify the factory resolves a skills generator strategy for `General Coding Agent`
     - [ ] Write failing test: verify the factory resolves a skills generator strategy for `Claude Code`
     - [ ] Implement: create `src/skills-generators/` with shared generation logic and two path strategies
     - [ ] Refactor: extract shared skill packaging behavior so only the output-path strategy differs
-- [ ] Task: Generate the six Conductor skills from existing command templates
+- [x] Task: Generate the six Conductor skills from existing command templates [0e466d5]
     - [ ] Write failing test: verify `conductor-implement`, `conductor-newTrack`, `conductor-revert`, `conductor-review`, `conductor-setup`, and `conductor-status` are generated
     - [ ] Write failing test: verify generated skill names map to the correct command template sources
     - [ ] Implement: derive skill content from the existing TOML command templates instead of adding a second source of truth
     - [ ] Refactor: centralize skill definitions and command-template mapping
-- [ ] Task: Add agentskills-compliant `SKILL.md` generation
+- [x] Task: Add agentskills-compliant `SKILL.md` generation [0e466d5]
     - [ ] Write failing test: verify each generated `SKILL.md` contains `name` and `description` frontmatter
     - [ ] Write failing test: verify `description` values are copied from the source TOML command descriptions
     - [ ] Write failing test: verify any required supporting skill files are emitted for a minimal valid skill package
     - [ ] Implement: generate `SKILL.md` and required support files per the agentskills.io specification
     - [ ] Refactor: keep frontmatter generation consistent across both skills strategies
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Build skill generation architecture' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Build skill generation architecture' (Protocol in workflow.md)
 
 ## Phase 3: Add agent-specific skill outputs and setup assets
 - [ ] Task: Write skills to the correct project-level directories
