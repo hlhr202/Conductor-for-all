@@ -14,22 +14,17 @@ export function substituteVariables(template: string, variables: Record<string, 
 }
 
 export async function getTemplateRoot(): Promise<string> {
-  const candidates = [
-    join(__dirname, 'templates'), 
-    join(__dirname, '../templates'),
-    join(__dirname, '../../gemini-conductor-codebase')
-  ];
+  const templateRoot = join(__dirname, 'templates');
 
-  for (const path of candidates) {
-    try {
-      if ((await stat(path)).isDirectory()) {
-         return path;
-      }
-    } catch {
-      continue;
+  try {
+    if ((await stat(templateRoot)).isDirectory()) {
+      return templateRoot;
     }
+  } catch {
+    // fall through to error below
   }
-  throw new Error(`Template directory not found. Searched in: ${candidates.join(', ')}`);
+
+  throw new Error(`Template directory not found. Searched in: ${templateRoot}`);
 }
 
 export async function loadTemplate(templatePath: string): Promise<string> {

@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { installHandler } from '../src/commands/install.js';
 import * as promptModule from '../src/cli/prompt.js';
+import * as templateModule from '../src/utils/template.js';
 import fs from 'fs-extra';
 import { join } from 'path';
 
@@ -17,6 +18,11 @@ describe('Install Command End-to-End', () => {
     vi.spyOn(process, 'exit').mockImplementation((() => {}) as any);
     vi.spyOn(console, 'log').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
+    const templateRoot = join(process.cwd(), 'gemini-conductor-codebase');
+    vi.spyOn(templateModule, 'getTemplateRoot').mockResolvedValue(templateRoot);
+    vi.spyOn(templateModule, 'loadTemplate').mockImplementation(
+      async (templatePath: string) => fs.readFile(join(templateRoot, templatePath), 'utf-8') as Promise<string>
+    );
     await fs.emptyDir(testDir);
   });
 

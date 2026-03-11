@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { substituteVariables, loadTemplate } from '../src/utils/template';
+import { join } from 'path';
+import { substituteVariables, loadTemplate, getTemplateRoot } from '../src/utils/template';
 
 describe('Template Substitution', () => {
   it('should replace {agent_type}', () => {
@@ -27,9 +28,14 @@ describe('Template Substitution', () => {
   });
 
   describe('Template Loader', () => {
-    it('should load a template file', async () => {
-      const content = await loadTemplate('commands/setup.toml');
-      expect(content).toContain('description = "Scaffolds the project');
+    it('should only search the runtime dist templates directory', async () => {
+      await expect(getTemplateRoot()).rejects.toThrow(
+        `Template directory not found. Searched in: ${join(process.cwd(), 'src', 'utils', 'templates')}`
+      );
+    });
+
+    it('should throw if templates are unavailable in source runtime', async () => {
+      await expect(loadTemplate('commands/setup.toml')).rejects.toThrow('Template directory not found');
     });
 
     it('should throw if file missing', async () => {
