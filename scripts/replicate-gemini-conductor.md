@@ -35,7 +35,7 @@ rm -rf gemini-conductor-codebase/conductor-main
 
 ## Step 2: Process files
 
-Read through the extracted files and replace any gemini related install paths with a variable placeholder so that the rust cli can replace them at runtime.
+Read through the extracted files and replace any gemini related install paths with a variable placeholder so that the our cli can replace them at runtime.
 
 placeholder can be
 
