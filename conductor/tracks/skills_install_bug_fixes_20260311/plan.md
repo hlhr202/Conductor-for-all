@@ -10,10 +10,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: Correct Setup Template Path
-- [ ] Task: Update Template Path Replacement Logic
+- [x] Task: Update Template Path Replacement Logic (7082e91)
     - [ ] Modify `BaseSkillGenerator.ts` to replace `__$$CODE_AGENT_INSTALL_PATH$$__` with the correct path, ensuring it points specifically to the `skills/conductor-setup/templates/` directory within the respective agent's base path (e.g., `.agents` or `.claude`).
     - [ ] Write/update unit tests to verify the template path replacement logic.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Final Verification
 - [ ] Task: End-to-End Testing
