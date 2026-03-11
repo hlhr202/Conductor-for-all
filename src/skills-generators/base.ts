@@ -21,10 +21,10 @@ export abstract class BaseSkillsGenerator implements SkillsGenerator {
     const templateRoot = await getTemplateRoot();
 
     if (this.agentConfig?.protocolFilename) {
-      const protocolSource = join(templateRoot, this.agentConfig.protocolFilename);
+      const templateProtocolSource = join(templateRoot, 'GEMINI.md');
       const protocolDest = join(targetDir, this.agentConfig.protocolFilename);
 
-      if (existsSync(protocolSource)) {
+      if (existsSync(templateProtocolSource)) {
         let shouldCopy = true;
 
         if (existsSync(protocolDest)) {
@@ -38,7 +38,7 @@ export abstract class BaseSkillsGenerator implements SkillsGenerator {
         }
 
         if (shouldCopy) {
-          await copy(protocolSource, protocolDest);
+          await copy(templateProtocolSource, protocolDest);
         }
       }
     }

@@ -21,11 +21,9 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string; ag
       const target = await promptForSkillsTarget();
       console.log(`✔ Selected skills target: ${target}`);
 
-      const selectedAgent = argv.agent
-        ? argv.agent as AgentType
-        : target === 'claude-code'
-          ? 'claude-code'
-          : 'opencode';
+      const selectedAgent: AgentType = target === 'general'
+        ? (argv.agent as AgentType | undefined) ?? 'opencode'
+        : target;
       const agentConfig = getGeneratorConfig(selectedAgent);
       const skillsGenerator = getSkillsGenerator(target, agentConfig);
       console.log('\nStep 2: Generating skills...');

@@ -27,7 +27,7 @@ export async function promptForSkillsTarget(): Promise<SkillsTarget> {
     message: 'Select target agent for skills:',
     choices: [
       {
-        name: 'General Coding Agent',
+        name: 'General Coding Agents',
         value: 'general',
         description: 'Install to .agents/skills/ directory',
       },
@@ -35,6 +35,16 @@ export async function promptForSkillsTarget(): Promise<SkillsTarget> {
         name: 'Claude Code',
         value: 'claude-code',
         description: 'Install to .claude/skills/ directory',
+      },
+      {
+        name: 'Antigravity',
+        value: 'antigravity',
+        description: 'Install to .agents/skills/ with GEMINI.md protocol',
+      },
+      {
+        name: 'Gemini CLI',
+        value: 'gemini',
+        description: 'Install to .agents/skills/ with GEMINI.md protocol',
       }
     ],
     default: 'general',

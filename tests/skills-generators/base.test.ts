@@ -101,7 +101,7 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
   it('should prompt before overwriting an existing protocol file', async () => {
     generator = new TestSkillsGenerator({ protocolFilename: 'CLAUDE.md' });
     vi.mocked(fs.existsSync).mockImplementation(
-      (path) => path === join('/mock/templates', 'CLAUDE.md') || path === join('/mock/target', 'CLAUDE.md')
+      (path) => path === join('/mock/templates', 'GEMINI.md') || path === join('/mock/target', 'CLAUDE.md')
     );
     vi.mocked(select).mockResolvedValue(true as never);
 
@@ -111,7 +111,7 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
       message: expect.stringContaining('CLAUDE.md'),
     }));
     expect(fs.copy).toHaveBeenCalledWith(
-      join('/mock/templates', 'CLAUDE.md'),
+      join('/mock/templates', 'GEMINI.md'),
       join('/mock/target', 'CLAUDE.md')
     );
   });
@@ -119,14 +119,14 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
   it('should skip protocol copying when overwrite is declined', async () => {
     generator = new TestSkillsGenerator({ protocolFilename: 'AGENTS.md' });
     vi.mocked(fs.existsSync).mockImplementation(
-      (path) => path === join('/mock/templates', 'AGENTS.md') || path === join('/mock/target', 'AGENTS.md')
+      (path) => path === join('/mock/templates', 'GEMINI.md') || path === join('/mock/target', 'AGENTS.md')
     );
     vi.mocked(select).mockResolvedValue(false as never);
 
     await generator.generate('/mock/target');
 
     expect(fs.copy).not.toHaveBeenCalledWith(
-      join('/mock/templates', 'AGENTS.md'),
+      join('/mock/templates', 'GEMINI.md'),
       join('/mock/target', 'AGENTS.md')
     );
   });

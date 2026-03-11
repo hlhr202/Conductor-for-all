@@ -34,7 +34,7 @@ describe('Install Command End-to-End', () => {
     expect(fs.existsSync(join(testDir, '.opencode/commands/conductor:setup.md'))).toBe(true);
   });
 
-  it('should install successfully in skills mode for General Coding Agent', async () => {
+  it('should install successfully in skills mode for General Coding Agents', async () => {
     vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
     vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('general');
 
@@ -42,6 +42,7 @@ describe('Install Command End-to-End', () => {
 
     expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/SKILL.md'))).toBe(true);
     expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/templates/workflow.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'AGENTS.md'))).toBe(true);
   });
 
   it('should install successfully in skills mode for Claude Code', async () => {
@@ -52,5 +53,26 @@ describe('Install Command End-to-End', () => {
 
     expect(fs.existsSync(join(testDir, '.claude/skills/conductor-setup/SKILL.md'))).toBe(true);
     expect(fs.existsSync(join(testDir, '.claude/skills/conductor-setup/templates/workflow.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'CLAUDE.md'))).toBe(true);
+  });
+
+  it('should install successfully in skills mode for Antigravity', async () => {
+    vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
+    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('antigravity');
+
+    await installHandler({ path: testDir, _: [], $0: 'conductor' });
+
+    expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/SKILL.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'GEMINI.md'))).toBe(true);
+  });
+
+  it('should install successfully in skills mode for Gemini CLI', async () => {
+    vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
+    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('gemini');
+
+    await installHandler({ path: testDir, _: [], $0: 'conductor' });
+
+    expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/SKILL.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'GEMINI.md'))).toBe(true);
   });
 });

@@ -36,9 +36,11 @@ describe('CLI Prompts', () => {
     const callArgs = vi.mocked(select).mock.calls[0][0];
     const choices = callArgs.choices as Array<{ name: string; value: string }>;
     
-    expect(choices).toHaveLength(2);
-    expect(choices.find(c => c.value === 'general')?.name).toBe('General Coding Agent');
+    expect(choices).toHaveLength(4);
+    expect(choices.find(c => c.value === 'general')?.name).toBe('General Coding Agents');
     expect(choices.find(c => c.value === 'claude-code')?.name).toBe('Claude Code');
+    expect(choices.find(c => c.value === 'antigravity')?.name).toBe('Antigravity');
+    expect(choices.find(c => c.value === 'gemini')?.name).toBe('Gemini CLI');
   });
 
   it('should include Antigravity in options', async () => {

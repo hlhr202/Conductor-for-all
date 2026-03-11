@@ -7,6 +7,8 @@ import { ClaudeCodeSkillsGenerator } from './claude-code/index.js';
 export function getSkillsGenerator(target: SkillsTarget, agentConfig?: Pick<AgentConfig, 'protocolFilename'>): SkillsGenerator {
   switch (target) {
     case 'general':
+    case 'antigravity':
+    case 'gemini':
       return new GeneralSkillsGenerator(agentConfig);
     case 'claude-code':
       return new ClaudeCodeSkillsGenerator(agentConfig);
