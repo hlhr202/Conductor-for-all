@@ -31,6 +31,10 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
       join('/mock/target', '.agents', 'skills', 'conductor-setup', 'SKILL.md'),
       expect.stringContaining('Mock prompt with .agents')
     );
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      join('/mock/target', '.agents', 'skills', 'conductor-setup', 'SKILL.md'),
+      expect.stringContaining('Mock prompt with .agents/skills/conductor-setup')
+    );
   });
 
   it('should write Claude Code skills to .claude/skills/', async () => {
@@ -41,6 +45,10 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
     expect(fs.writeFile).toHaveBeenCalledWith(
       join('/mock/target', '.claude', 'skills', 'conductor-setup', 'SKILL.md'),
       expect.stringContaining('Mock prompt with .claude')
+    );
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      join('/mock/target', '.claude', 'skills', 'conductor-setup', 'SKILL.md'),
+      expect.stringContaining('Mock prompt with .claude/skills/conductor-setup')
     );
   });
 });

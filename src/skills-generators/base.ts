@@ -14,10 +14,17 @@ export abstract class BaseSkillsGenerator implements SkillsGenerator {
   protected abstract getSkillsBaseDir(targetDir: string): string;
   protected abstract getInstallPath(): string;
 
+  protected getTemplateInstallPath(cmd: string): string {
+    if (cmd === 'setup') {
+      return `${this.getInstallPath()}/skills/conductor-setup`;
+    }
+
+    return this.getInstallPath();
+  }
+
   async generate(targetDir: string): Promise<void> {
     const commands = ['setup', 'newTrack', 'implement', 'status', 'revert', 'review'];
     const skillsBaseDir = this.getSkillsBaseDir(targetDir);
-    const installPath = this.getInstallPath();
     const templateRoot = await getTemplateRoot();
 
     if (this.agentConfig?.protocolFilename) {
@@ -55,6 +62,7 @@ export abstract class BaseSkillsGenerator implements SkillsGenerator {
 
         const skillName = `conductor-${cmd}`;
         const description = parsed.description || `Conductor ${cmd} command`;
+        const installPath = this.getTemplateInstallPath(cmd);
         
         let prompt = parsed.prompt;
         prompt = prompt.replace(/__\$\$CODE_AGENT_INSTALL_PATH\$\$__/g, installPath);

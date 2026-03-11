@@ -76,6 +76,29 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
     expect(content).toContain('Mock prompt with .test-agent');
   });
 
+  it('should point the setup skill install path to its skill root', async () => {
+    vi.mocked(templateUtils.loadTemplate).mockImplementation(async (templatePath: string) => {
+      if (templatePath === 'commands/setup.toml') {
+        return `
+description = "Mock description"
+prompt = "Use templates at __$$CODE_AGENT_INSTALL_PATH$$__/templates"
+        `;
+      }
+
+      return `
+description = "Mock description"
+prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
+      `;
+    });
+
+    await generator.generate('/mock/target');
+
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      join('/mock/target', '.test-agent', 'skills', 'conductor-setup', 'SKILL.md'),
+      expect.stringContaining('.test-agent/skills/conductor-setup/templates')
+    );
+  });
+
   it('should copy setup templates for conductor-setup skill', async () => {
     await generator.generate('/mock/target');
     
