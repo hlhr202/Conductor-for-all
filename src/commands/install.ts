@@ -1,7 +1,7 @@
 
 import { ArgumentsCamelCase } from 'yargs';
 import { promptForAgent, promptForInstallScope, promptForInstallMode, promptForSkillsTarget } from '../cli/prompt.js';
-import { getGenerator } from '../generators/index.js';
+import { getGenerator, getGeneratorConfig } from '../generators/index.js';
 import { getSkillsGenerator } from '../skills-generators/index.js';
 import { resolve } from 'path';
 
@@ -21,7 +21,13 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string; ag
       const target = await promptForSkillsTarget();
       console.log(`✔ Selected skills target: ${target}`);
 
-      const skillsGenerator = getSkillsGenerator(target);
+      const selectedAgent = argv.agent
+        ? argv.agent as AgentType
+        : target === 'claude-code'
+          ? 'claude-code'
+          : 'opencode';
+      const agentConfig = getGeneratorConfig(selectedAgent);
+      const skillsGenerator = getSkillsGenerator(target, agentConfig);
       console.log('\nStep 2: Generating skills...');
       await skillsGenerator.generate(targetDir);
 

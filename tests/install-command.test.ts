@@ -3,15 +3,26 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { installHandler } from '../src/commands/install.js';
 import * as promptModule from '../src/cli/prompt.js';
 import * as generatorFactory from '../src/generators/index.js';
+import * as skillsGeneratorFactory from '../src/skills-generators/index.js';
+import { geminiConfig } from '../src/generators/gemini/index.js';
 
 vi.mock('../src/cli/prompt.js');
 vi.mock('../src/generators/index.js', () => ({
     getGenerator: vi.fn(),
+    getGeneratorConfig: vi.fn(),
+}));
+
+vi.mock('../src/skills-generators/index.js', () => ({
+    getSkillsGenerator: vi.fn(),
 }));
 
 describe('Install Command', () => {
   const mockGenerator = {
       validate: vi.fn(),
+      generate: vi.fn(),
+  };
+
+  const mockSkillsGenerator = {
       generate: vi.fn(),
   };
 
@@ -21,6 +32,8 @@ describe('Install Command', () => {
     vi.spyOn(console, 'log').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
     (generatorFactory.getGenerator as any).mockReturnValue(mockGenerator);
+    (generatorFactory.getGeneratorConfig as any).mockReturnValue({ protocolFilename: 'AGENTS.md' });
+    (skillsGeneratorFactory.getSkillsGenerator as any).mockReturnValue(mockSkillsGenerator);
     
     // Default mocks for prompt mode to keep existing tests green
     vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('prompt');
@@ -112,7 +125,19 @@ describe('Install Command', () => {
     // Verify prompt mode prompts were skipped
     expect(promptModule.promptForAgent).not.toHaveBeenCalled();
     expect(promptModule.promptForInstallScope).not.toHaveBeenCalled();
-    
-    // Note: Once skills generator is implemented, we can verify its methods are called
+    expect(skillsGeneratorFactory.getSkillsGenerator).toHaveBeenCalledWith('general', expect.any(Object));
+    expect(mockSkillsGenerator.generate).toHaveBeenCalled();
+  });
+
+  it('should pass the selected agent config into skills generation', async () => {
+    const mockArgv = { path: '.', agent: 'gemini', _: [], $0: 'conductor' };
+    vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
+    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('general');
+    (generatorFactory.getGeneratorConfig as any).mockReturnValue(geminiConfig);
+
+    await installHandler(mockArgv as any);
+
+    expect(generatorFactory.getGeneratorConfig).toHaveBeenCalledWith('gemini');
+    expect(skillsGeneratorFactory.getSkillsGenerator).toHaveBeenCalledWith('general', geminiConfig);
   });
 });

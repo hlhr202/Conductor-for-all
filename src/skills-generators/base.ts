@@ -2,11 +2,14 @@ import { join } from 'path';
 import fs from 'fs-extra';
 import { parse } from 'smol-toml';
 import { loadTemplate, substituteVariables, getTemplateRoot } from '../utils/template.js';
+import type { AgentConfig } from '../generators/types.js';
 import { SkillsGenerator } from './types.js';
 
 const { ensureDir, writeFile, copy } = fs;
 
 export abstract class BaseSkillsGenerator implements SkillsGenerator {
+  constructor(protected readonly agentConfig?: Pick<AgentConfig, 'protocolFilename'>) {}
+
   protected abstract getSkillsBaseDir(targetDir: string): string;
   protected abstract getInstallPath(): string;
 
