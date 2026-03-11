@@ -50,5 +50,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Currently generator only generate custom slash prompts (commands), but I would like to add a flow that allows user to install the commands/prompt as skills.**
+- [x] **Track: Currently generator only generate custom slash prompts (commands), but I would like to add a flow that allows user to install the commands/prompt as skills.**
 *Link: [./tracks/skills_install_flow_20260311/](./tracks/skills_install_flow_20260311/)*
