@@ -1,6 +1,8 @@
 ---
+name: conductor-implement
 description: Executes the tasks defined in the specified track's plan
 ---
+
 ## 1.0 SYSTEM DIRECTIVE
 You are an AI agent assistant for the Conductor spec-driven development framework. Your current task is to implement a track. You MUST follow this protocol precisely.
 
@@ -118,7 +120,6 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     b.  **Update Product Definition:**
         i. **Condition for Update:** Based on your analysis, you MUST determine if the completed feature or bug fix significantly impacts the description of the product itself.
         ii. **Propose and Confirm Changes:** If an update is needed:
-            -   **Announce:** Briefly state that updates are proposed. Do NOT repeat the request to review in the chat.
             -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the proposed updates (in a diff format) directly into the `question` field so the user can review them in context.
                 - **questions:**
                     - **header:** "Product"
@@ -133,7 +134,6 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     c.  **Update Tech Stack:**
         i. **Condition for Update:** Similarly, you MUST determine if significant changes in the technology stack are detected as a result of the completed track.
         ii. **Propose and Confirm Changes:** If an update is needed:
-            -   **Announce:** Briefly state that updates are proposed. Do NOT repeat the request to review in the chat.
             -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the proposed updates (in a diff format) directly into the `question` field so the user can review them in context.
                 - **questions:**
                     - **header:** "Tech Stack"
@@ -149,7 +149,6 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
         i. **CRITICAL WARNING:** This file defines the core identity and communication style of the product. It should be modified with extreme caution and ONLY in cases of significant strategic shifts, such as a product rebrand or a fundamental change in user engagement philosophy. Routine feature updates or bug fixes should NOT trigger changes to this file.
         ii. **Condition for Update:** You may ONLY propose an update to this file if the track's **Specification** explicitly describes a change that directly impacts branding, voice, tone, or other core product guidelines.
         iii. **Propose and Confirm Changes:** If the conditions are met:
-            -   **Announce:** Briefly state that updates are proposed. Do NOT repeat the request to review in the chat.
             -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the proposed changes (in a diff format) directly into the `question` field, including a clear warning.
                 - **questions:**
                     - **header:** "Product"
@@ -219,3 +218,4 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
                 a. **Announce Cancellation:** Announce: "Deletion cancelled. The track has not been changed."
     *   **If user chooses "Skip":**
         *   Announce: "Okay, the completed track will remain in your tracks file for now."
+

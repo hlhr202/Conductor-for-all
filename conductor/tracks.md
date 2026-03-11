@@ -14,7 +14,7 @@ This file tracks all major tracks for the project. Each track has its own detail
   *Link: [./conductor/archive/review_command_20260130/](./conductor/archive/review_command_20260130/)* <!-- status: complete -->
 
 - [x] **Track: Implement Universal File Resolution Protocol**
-  *Link: [./conductor/tracks/universal_file_resolution_20260116/](./conductor/tracks/universal_file_resolution_20260116/)* <!-- status: complete -->
+  *Link: [./conductor/archive/universal_file_resolution_20260116/](./conductor/archive/universal_file_resolution_20260116/)* <!-- status: complete -->
 
 - [x] **Track: Create a welcome ASCII image showing CONDUCTOR 4 ALL at the start of the cli install**
   *Link: [./conductor/archive/ascii_welcome_banner_20260116/](./conductor/archive/ascii_welcome_banner_20260116/)* <!-- status: complete -->

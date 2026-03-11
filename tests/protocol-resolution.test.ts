@@ -29,7 +29,10 @@ describe('ConfigurableGenerator - Protocol Resolution', () => {
         originalCwd = process.cwd;
         process.cwd = vi.fn(() => mockProjectRoot);
         vi.mocked(templateUtils.getTemplateRoot).mockResolvedValue(mockTemplateRoot);
-        vi.mocked(templateUtils.loadTemplate).mockResolvedValue('template content');
+        vi.mocked(templateUtils.loadTemplate).mockResolvedValue([
+            'description = "Test command"',
+            'prompt = "Test prompt"',
+        ].join('\n'));
         vi.mocked(fs.ensureDir).mockResolvedValue(undefined);
         vi.mocked(fs.copy).mockResolvedValue(undefined);
         vi.mocked(fs.writeFile).mockResolvedValue(undefined);

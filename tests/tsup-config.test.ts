@@ -33,5 +33,10 @@ describe('Tsup Build Configuration', () => {
       const distDir = join(process.cwd(), 'dist');
       expect(existsSync(distDir)).toBe(true);
     });
+
+    it('should include the source protocol file in dist/templates', () => {
+      const distTemplatesDir = join(process.cwd(), 'dist', 'templates');
+      expect(existsSync(join(distTemplatesDir, 'GEMINI.md'))).toBe(true);
+    });
   });
 });

@@ -1,0 +1,8 @@
+{
+  "track_id": "skills_install_bug_fixes_20260311",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-03-11T15:35:00Z",
+  "updated_at": "2026-03-11T15:35:00Z",
+  "description": "Fix protocol files installation and setup template path issues in the skills generator flow."
+}

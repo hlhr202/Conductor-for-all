@@ -1,0 +1,8 @@
+{
+  "track_id": "skills_install_flow_20260311",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-03-11T06:12:07Z",
+  "updated_at": "2026-03-11T06:12:07Z",
+  "description": "Currently generator only generate custom slash prompts (commands), but I would like to add a flow that allows user to install the commands/prompt as skills."
+}

@@ -13,6 +13,8 @@ A standalone command-line tool built with TypeScript and Node.js that brings the
 
 ## Key Features
 - **Project Initialization & Installation:** A robust CLI to scaffold the necessary Conductor directories, templates, and configuration files into any project.
+- **Multi-Modal Installation**: Supports installing workflows as traditional slash commands or as agentskills.io compliant skills.
+- **Agent-Aware Skills Installation**: Skills installs generate the correct protocol file for the selected target (`AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`) and support direct skills targets for **General Coding Agents**, **Claude Code**, **Antigravity**, and **Gemini CLI**.
 - **Agent Installation Scope Control**: Enforces global (e.g., `~/.codex`) or project-level installation based on agent type requirements.
 - **Smart Agent Selection**: Interactive CLI to choose your preferred AI agent.
 - **Multi-Agent Support:** Built-in support for multiple AI agents including **OpenCode**, **Claude Code**, **Antigravity**, **Cursor**, **VS Code Copilot**, **Codex**, **Windsurf**, **Cline**, and **Gemini CLI**, with automated generation of tailored command structures and file formats (Markdown or TOML) for each.
