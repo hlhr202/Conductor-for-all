@@ -7,7 +7,7 @@
     - [ ] Modify `BaseSkillGenerator.ts` to utilize the agent's configuration to copy the correct protocol file (`AGENTS.md`, `GEMINI.md`, or `CLAUDE.md`).
     - [ ] Add the logic to prompt for overwrite if the protocol file already exists, matching the command generator's behavior.
     - [ ] Write/update unit tests to verify protocol file selection and copying logic for different agent types.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: Correct Setup Template Path
 - [ ] Task: Update Template Path Replacement Logic
