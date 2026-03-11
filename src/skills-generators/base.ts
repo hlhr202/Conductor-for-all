@@ -1,11 +1,12 @@
 import { join } from 'path';
+import select from '@inquirer/select';
 import fs from 'fs-extra';
 import { parse } from 'smol-toml';
 import { loadTemplate, substituteVariables, getTemplateRoot } from '../utils/template.js';
 import type { AgentConfig } from '../generators/types.js';
 import { SkillsGenerator } from './types.js';
 
-const { ensureDir, writeFile, copy } = fs;
+const { ensureDir, writeFile, copy, existsSync } = fs;
 
 export abstract class BaseSkillsGenerator implements SkillsGenerator {
   constructor(protected readonly agentConfig?: Pick<AgentConfig, 'protocolFilename'>) {}
@@ -17,6 +18,30 @@ export abstract class BaseSkillsGenerator implements SkillsGenerator {
     const commands = ['setup', 'newTrack', 'implement', 'status', 'revert', 'review'];
     const skillsBaseDir = this.getSkillsBaseDir(targetDir);
     const installPath = this.getInstallPath();
+    const templateRoot = await getTemplateRoot();
+
+    if (this.agentConfig?.protocolFilename) {
+      const protocolSource = join(templateRoot, this.agentConfig.protocolFilename);
+      const protocolDest = join(targetDir, this.agentConfig.protocolFilename);
+
+      if (existsSync(protocolSource)) {
+        let shouldCopy = true;
+
+        if (existsSync(protocolDest)) {
+          shouldCopy = await select({
+            message: `The protocol file '${this.agentConfig.protocolFilename}' already exists. Do you want to overwrite it?`,
+            choices: [
+              { value: true, name: 'Overwrite' },
+              { value: false, name: 'Skip' },
+            ],
+          });
+        }
+
+        if (shouldCopy) {
+          await copy(protocolSource, protocolDest);
+        }
+      }
+    }
 
     for (const cmd of commands) {
       try {

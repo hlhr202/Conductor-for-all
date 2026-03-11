@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BaseSkillsGenerator } from '../../src/skills-generators/base.js';
 import * as templateUtils from '../../src/utils/template.js';
 import fs from 'fs-extra';
+import select from '@inquirer/select';
 import { join } from 'path';
 
 vi.mock('../../src/utils/template.js', () => ({
@@ -11,6 +12,9 @@ vi.mock('../../src/utils/template.js', () => ({
 }));
 
 vi.mock('fs-extra');
+vi.mock('@inquirer/select', () => ({
+  default: vi.fn(),
+}));
 
 class TestSkillsGenerator extends BaseSkillsGenerator {
   protected getSkillsBaseDir(targetDir: string): string {
@@ -34,6 +38,7 @@ describe('BaseSkillsGenerator', () => {
 description = "Mock description"
 prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
     `);
+    vi.mocked(fs.existsSync).mockReturnValue(false);
   });
 
   it('should generate all six Conductor skills', async () => {
@@ -78,6 +83,51 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
     expect(fs.copy).toHaveBeenCalledWith(
       join('/mock/templates', 'templates'),
       join('/mock/target', '.test-agent', 'skills', 'conductor-setup', 'templates')
+    );
+  });
+
+  it('should copy the configured protocol file into the target root', async () => {
+    generator = new TestSkillsGenerator({ protocolFilename: 'GEMINI.md' });
+    vi.mocked(fs.existsSync).mockImplementation((path) => path === join('/mock/templates', 'GEMINI.md'));
+
+    await generator.generate('/mock/target');
+
+    expect(fs.copy).toHaveBeenCalledWith(
+      join('/mock/templates', 'GEMINI.md'),
+      join('/mock/target', 'GEMINI.md')
+    );
+  });
+
+  it('should prompt before overwriting an existing protocol file', async () => {
+    generator = new TestSkillsGenerator({ protocolFilename: 'CLAUDE.md' });
+    vi.mocked(fs.existsSync).mockImplementation(
+      (path) => path === join('/mock/templates', 'CLAUDE.md') || path === join('/mock/target', 'CLAUDE.md')
+    );
+    vi.mocked(select).mockResolvedValue(true as never);
+
+    await generator.generate('/mock/target');
+
+    expect(select).toHaveBeenCalledWith(expect.objectContaining({
+      message: expect.stringContaining('CLAUDE.md'),
+    }));
+    expect(fs.copy).toHaveBeenCalledWith(
+      join('/mock/templates', 'CLAUDE.md'),
+      join('/mock/target', 'CLAUDE.md')
+    );
+  });
+
+  it('should skip protocol copying when overwrite is declined', async () => {
+    generator = new TestSkillsGenerator({ protocolFilename: 'AGENTS.md' });
+    vi.mocked(fs.existsSync).mockImplementation(
+      (path) => path === join('/mock/templates', 'AGENTS.md') || path === join('/mock/target', 'AGENTS.md')
+    );
+    vi.mocked(select).mockResolvedValue(false as never);
+
+    await generator.generate('/mock/target');
+
+    expect(fs.copy).not.toHaveBeenCalledWith(
+      join('/mock/templates', 'AGENTS.md'),
+      join('/mock/target', 'AGENTS.md')
     );
   });
 });
