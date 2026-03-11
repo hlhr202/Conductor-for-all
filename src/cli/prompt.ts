@@ -1,5 +1,47 @@
 import select from '@inquirer/select';
-import { AgentType, InstallScope } from '../types.js';
+import { AgentType, InstallScope, InstallMode, SkillsTarget } from '../types.js';
+
+export async function promptForInstallMode(): Promise<InstallMode> {
+  const answer = await select<InstallMode>({
+    message: 'Select installation mode:',
+    choices: [
+      {
+        name: 'Slash Custom Prompts (Commands)',
+        value: 'prompt',
+        description: 'Install as standard slash commands (e.g. /conductor:implement)',
+      },
+      {
+        name: 'Skills',
+        value: 'skills',
+        description: 'Install as agentskills.io compliant skills',
+      }
+    ],
+    default: 'prompt',
+  });
+
+  return answer;
+}
+
+export async function promptForSkillsTarget(): Promise<SkillsTarget> {
+  const answer = await select<SkillsTarget>({
+    message: 'Select target agent for skills:',
+    choices: [
+      {
+        name: 'General Coding Agent',
+        value: 'general',
+        description: 'Install to .agents/skills/ directory',
+      },
+      {
+        name: 'Claude Code',
+        value: 'claude-code',
+        description: 'Install to .claude/skills/ directory',
+      }
+    ],
+    default: 'general',
+  });
+
+  return answer;
+}
 
 export async function promptForInstallScope(agent: AgentType): Promise<InstallScope> {
   const isCodex = agent === 'codex';

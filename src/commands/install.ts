@@ -1,6 +1,6 @@
 
 import { ArgumentsCamelCase } from 'yargs';
-import { promptForAgent, promptForInstallScope } from '../cli/prompt.js';
+import { promptForAgent, promptForInstallScope, promptForInstallMode, promptForSkillsTarget } from '../cli/prompt.js';
 import { getGenerator } from '../generators/index.js';
 import { resolve } from 'path';
 
@@ -12,6 +12,18 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string; ag
   
   try {
     console.log(`Initializing Conductor in: ${targetDir}`);
+
+    const installMode = await promptForInstallMode();
+
+    if (installMode === 'skills') {
+      console.log('Step 1: Prompting for skills target selection...');
+      const target = await promptForSkillsTarget();
+      console.log(`✔ Selected skills target: ${target}`);
+
+      // TODO: Call skills generator here in Phase 2
+      console.log('\n✔ Conductor skills initialized successfully!');
+      return;
+    }
     
     // 1. Select Agent
     let agent: AgentType;

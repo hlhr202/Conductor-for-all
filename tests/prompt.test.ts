@@ -1,6 +1,6 @@
 
-import { describe, it, expect, vi } from 'vitest';
-import { promptForAgent } from '../src/cli/prompt.js';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { promptForAgent, promptForInstallMode, promptForSkillsTarget } from '../src/cli/prompt.js';
 import select from '@inquirer/select';
 
 // Mock the @inquirer/select module
@@ -9,6 +9,38 @@ vi.mock('@inquirer/select', () => ({
 }));
 
 describe('CLI Prompts', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should prompt for install mode with correct choices', async () => {
+    vi.mocked(select).mockResolvedValue('skills');
+
+    const result = await promptForInstallMode();
+
+    expect(result).toBe('skills');
+    const callArgs = vi.mocked(select).mock.calls[0][0];
+    const choices = callArgs.choices as Array<{ name: string; value: string }>;
+    
+    expect(choices).toHaveLength(2);
+    expect(choices.find(c => c.value === 'prompt')?.name).toBe('Slash Custom Prompts (Commands)');
+    expect(choices.find(c => c.value === 'skills')?.name).toBe('Skills');
+  });
+
+  it('should prompt for skills target with correct choices', async () => {
+    vi.mocked(select).mockResolvedValue('general');
+
+    const result = await promptForSkillsTarget();
+
+    expect(result).toBe('general');
+    const callArgs = vi.mocked(select).mock.calls[0][0];
+    const choices = callArgs.choices as Array<{ name: string; value: string }>;
+    
+    expect(choices).toHaveLength(2);
+    expect(choices.find(c => c.value === 'general')?.name).toBe('General Coding Agent');
+    expect(choices.find(c => c.value === 'claude-code')?.name).toBe('Claude Code');
+  });
+
   it('should include Antigravity in options', async () => {
     vi.mocked(select).mockResolvedValue('antigravity');
 

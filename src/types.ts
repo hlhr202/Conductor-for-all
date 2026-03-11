@@ -2,6 +2,10 @@ export type AgentType = 'opencode' | 'claude-code' | 'antigravity' | 'cursor' | 
 
 export type InstallScope = 'global' | 'project';
 
+export type InstallMode = 'prompt' | 'skills';
+
+export type SkillsTarget = 'general' | 'claude-code';
+
 export interface ProjectConfig {
   agentType: AgentType;
   targetDir: string;
