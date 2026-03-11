@@ -48,5 +48,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [x] **Track: Enforce installation scope (Global vs Project) based on Agent type**
   *Link: [./conductor/archive/agent_installation_scope_20260109/](./conductor/archive/agent_installation_scope_20260109/)*
 
-
-\n---\n\n- [x] **Track: Fix protocol files installation and setup template path issues in the skills generator flow.**\n  *Link: [./conductor/tracks/skills_install_bug_fixes_20260311/](./conductor/tracks/skills_install_bug_fixes_20260311/)*\n
