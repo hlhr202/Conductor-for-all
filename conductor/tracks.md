@@ -48,7 +48,4 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [x] **Track: Enforce installation scope (Global vs Project) based on Agent type**
   *Link: [./conductor/archive/agent_installation_scope_20260109/](./conductor/archive/agent_installation_scope_20260109/)*
 
----
 
-- [x] **Track: Currently generator only generate custom slash prompts (commands), but I would like to add a flow that allows user to install the commands/prompt as skills.**
-*Link: [./tracks/skills_install_flow_20260311/](./tracks/skills_install_flow_20260311/)*
