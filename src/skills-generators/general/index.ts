@@ -1,7 +1,12 @@
-import { SkillsGenerator } from '../types.js';
+import { join } from 'path';
+import { BaseSkillsGenerator } from '../base.js';
 
-export class GeneralSkillsGenerator implements SkillsGenerator {
-  async generate(targetDir: string): Promise<void> {
-    // To be implemented
+export class GeneralSkillsGenerator extends BaseSkillsGenerator {
+  protected getSkillsBaseDir(targetDir: string): string {
+    return join(targetDir, '.agents', 'skills');
+  }
+
+  protected getInstallPath(): string {
+    return '.agents';
   }
 }
