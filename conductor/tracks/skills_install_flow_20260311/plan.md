@@ -15,7 +15,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Add install mode branching' (Protocol in workflow.md)
 
 ## Phase 2: Build skill generation architecture
-- [ ] Task: Add a dedicated skills generator module
+- [x] Task: Add a dedicated skills generator module [4306080]
     - [ ] Write failing test: verify the factory resolves a skills generator strategy for `General Coding Agent`
     - [ ] Write failing test: verify the factory resolves a skills generator strategy for `Claude Code`
     - [ ] Implement: create `src/skills-generators/` with shared generation logic and two path strategies
