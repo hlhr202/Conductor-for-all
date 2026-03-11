@@ -46,7 +46,7 @@
     - [ ] Refactor: reuse existing template-loading utilities where possible
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Add agent-specific skill outputs and setup assets' (Protocol in workflow.md)
 
-## Phase 4: Verify compatibility and quality gates
+## Phase 4: Verify compatibility and quality gates [checkpoint: 205aa70]
 - [x] Task: Preserve existing slash prompt behavior
     - [x] Write failing test: verify prompt-mode installs still use the existing generators unchanged
     - [x] Implement: fix any regressions introduced by install mode branching
@@ -60,4 +60,4 @@
     - [x] Verify coverage for the new code meets the project target
     - [x] Run configured test checks for the changed modules
     - [x] Review generated outputs for documentation and type-safety consistency
-- [~] Task: Conductor - User Manual Verification 'Phase 4: Verify compatibility and quality gates' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Verify compatibility and quality gates' (Protocol in workflow.md)
