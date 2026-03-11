@@ -1,8 +1,7 @@
-import { AgentType } from '../types.js';
+import { AgentType, PromptAgentType } from '../types.js';
 import { AgentConfig, AgentGenerator } from './types.js';
 import { OpenCodeGenerator } from './opencode/index.js';
 import { ClaudeCodeGenerator } from './claude-code/index.js';
-import { AntigravityGenerator } from './antigravity/index.js';
 import { CursorGenerator } from './cursor/index.js';
 import { VSCodeCopilotGenerator } from './vscode-copilot/index.js';
 import { CodexGenerator } from './codex/index.js';
@@ -22,7 +21,6 @@ import { geminiConfig } from './gemini/config.js';
 export * from './types.js';
 export * from './opencode/index.js';
 export * from './claude-code/index.js';
-export * from './antigravity/index.js';
 export * from './cursor/index.js';
 export * from './vscode-copilot/index.js';
 export * from './codex/index.js';
@@ -30,12 +28,10 @@ export * from './windsurf/index.js';
 export * from './cline/index.js';
 export * from './gemini/index.js';
 
-export function getGenerator(agentType: AgentType): AgentGenerator {
+export function getGenerator(agentType: PromptAgentType): AgentGenerator {
   switch (agentType) {
     case 'claude-code':
       return new ClaudeCodeGenerator();
-    case 'antigravity':
-      return new AntigravityGenerator();
     case 'cursor':
       return new CursorGenerator();
     case 'vscode-copilot':

@@ -22,7 +22,6 @@ export const cli = yargs(hideBin(process.argv))
           choices: [
             'opencode', 
             'claude-code', 
-            'antigravity', 
             'cursor', 
             'vscode-copilot', 
             'codex',

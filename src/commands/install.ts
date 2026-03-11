@@ -5,7 +5,7 @@ import { getGenerator, getGeneratorConfig } from '../generators/index.js';
 import { getSkillsGenerator } from '../skills-generators/index.js';
 import { resolve } from 'path';
 
-import { AgentType } from '../types.js';
+import { AgentType, PromptAgentType } from '../types.js';
 
 export async function installHandler(argv: ArgumentsCamelCase<{ path: string; agent?: string }>): Promise<void> {
   // Resolve target directory to absolute path
@@ -21,9 +21,7 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string; ag
       const target = await promptForSkillsTarget();
       console.log(`✔ Selected skills target: ${target}`);
 
-      const selectedAgent: AgentType = target === 'general'
-        ? (argv.agent as AgentType | undefined) ?? 'opencode'
-        : target;
+      const selectedAgent: AgentType = target === 'claude-code' ? 'claude-code' : 'opencode';
       const agentConfig = getGeneratorConfig(selectedAgent);
       const skillsGenerator = getSkillsGenerator(target, agentConfig);
       console.log('\nStep 2: Generating skills...');
@@ -34,9 +32,9 @@ export async function installHandler(argv: ArgumentsCamelCase<{ path: string; ag
     }
     
     // 1. Select Agent
-    let agent: AgentType;
+    let agent: PromptAgentType;
     if (argv.agent) {
-      agent = argv.agent as AgentType;
+      agent = argv.agent as PromptAgentType;
       console.log(`Using provided agent: ${agent}`);
     } else {
       console.log('Step 1: Prompting for agent selection...');

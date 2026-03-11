@@ -4,7 +4,7 @@ import { installHandler } from '../src/commands/install.js';
 import * as promptModule from '../src/cli/prompt.js';
 import * as generatorFactory from '../src/generators/index.js';
 import * as skillsGeneratorFactory from '../src/skills-generators/index.js';
-import { geminiConfig } from '../src/generators/gemini/index.js';
+import { opencodeConfig } from '../src/generators/opencode/index.js';
 
 vi.mock('../src/cli/prompt.js');
 vi.mock('../src/generators/index.js', () => ({
@@ -129,15 +129,15 @@ describe('Install Command', () => {
     expect(mockSkillsGenerator.generate).toHaveBeenCalled();
   });
 
-  it('should pass the selected agent config into skills generation', async () => {
+  it('should always use the general AGENTS protocol for general skills installs', async () => {
     const mockArgv = { path: '.', agent: 'gemini', _: [], $0: 'conductor' };
     vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
     vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('general');
-    (generatorFactory.getGeneratorConfig as any).mockReturnValue(geminiConfig);
+    (generatorFactory.getGeneratorConfig as any).mockReturnValue(opencodeConfig);
 
     await installHandler(mockArgv as any);
 
-    expect(generatorFactory.getGeneratorConfig).toHaveBeenCalledWith('gemini');
-    expect(skillsGeneratorFactory.getSkillsGenerator).toHaveBeenCalledWith('general', geminiConfig);
+    expect(generatorFactory.getGeneratorConfig).toHaveBeenCalledWith('opencode');
+    expect(skillsGeneratorFactory.getSkillsGenerator).toHaveBeenCalledWith('general', opencodeConfig);
   });
 });

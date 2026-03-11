@@ -16,6 +16,19 @@
 -   **エージェントに依存しないセットアップ:** Conductor のコマンドとテンプレートをプロジェクトに「インストール」するメカニズムを提供し、事実上、複数の異なるコーディングエージェントが利用できるように「有効化」します。
 -   **標準化:** 人間の意図と AI の実行との間のギャップを埋める、プロジェクトオーケストレーションのための統一されたインターフェースを作成します。
 
+## 🔧 Skills インストールモード（推奨）
+
+Conductor は主に 2 つのインストール形式をサポートします："Slash Custom Prompts (Commands)" と "Skills"。多くのプロジェクトでは **Skills** を推奨します。
+
+- **Skills の役割:** Conductor を agentskills.io 形式のスキルファイル（またはエージェント固有のスキルディレクトリ）としてインストールし、コマンドやワークフローを幅広い AI エージェントやツールから発見・利用可能にします。
+- **Skills を推奨する理由:** エージェント間での移植性が高く、バージョン管理や配布が容易で、skill/skillpack の検出をサポートするエコシステムと相性が良いため、スラッシュコマンドの構文に依存しません。
+- **例：インストール先:**
+	- `.agents/skills/` — 汎用スキルディレクトリ（推奨）
+	- `.claude/skills/` — Claude Code 用
+	- `.gemini/skills/` — Gemini CLI / プロトコル用
+
+インストーラー実行時は、推奨されるクロスエージェントインストールのために **Skills** を選択してください。
+
 ## 🚀 使用方法
 
 ### 1. プロジェクトでの Conductor のセットアップ
@@ -53,14 +66,16 @@ AI コーディングエージェントを選択するように求められま�
 
 ### 3. エージェントでの Conductor の使用
 
-インストールが完了すると、インストールされたコマンドを使用して Conductor タスクを実行するように AI エージェントに指示できます。例えば：
+インストールが完了すると、インストールされたコマンドや提供されたスキルファイルを使って Conductor タスクを実行するよう AI エージェントに指示できます。例えば：
 
--   `@agent /conductor:setup` - プロジェクト構造を初期化します。
--   `@agent /conductor:newTrack` - 新しい機能またはバグ修正トラックを開始します。
--   `@agent /conductor:implement` - 選択したトラックを実装します。
--   `@agent /conductor:status` - 現在のトラックのステータスを確認します。
+- `@agent /conductor-setup` — プロジェクト構造を初期化します。 (skill: `.agents/skills/conductor-setup/SKILL.md`)
+- `@agent /conductor-newTrack` — 新しい機能またはバグ修正トラックを開始します。 (skill: `.agents/skills/conductor-newTrack/SKILL.md`)
+- `@agent /conductor-implement` — 選択したトラックを実装します。 (skill: `.agents/skills/conductor-implement/SKILL.md`)
+- `@agent /conductor-status` — 現在のトラックのステータスを確認します。 (skill: `.agents/skills/conductor-status/SKILL.md`)
+- `@agent /conductor-review` — トラックのレビュー プロトコルを実行します。 (skill: `.agents/skills/conductor-review/SKILL.md`)
+- `@agent /conductor-revert` — トラックに関連する変更を元に戻します。 (skill: `.agents/skills/conductor-revert/SKILL.md`)
 
-*注：正確な呼び出し構文は、特定のエージェントのスラッシュコマンドまたはファイルコンテキスト機能によって異なります。*
+*注：多くのエージェントはスキルファイルを開くことでスキルを実行できます（例：`.agents/skills/conductor-implement/SKILL.md`を開く）、またはエージェントの UI でスキル名を選択/実行できます。スキルには推奨されるスラッシュ呼び出しが含まれている場合があり、短いコマンド形式も使用できます。*
 
 
 

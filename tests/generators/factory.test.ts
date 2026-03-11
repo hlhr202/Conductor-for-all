@@ -4,7 +4,6 @@ import {
     getGenerator,
     OpenCodeGenerator,
     ClaudeCodeGenerator,
-    AntigravityGenerator,
     CursorGenerator,
     ClineGenerator
 } from '../../src/generators/index.js';
@@ -16,10 +15,6 @@ describe('getGenerator', () => {
 
     it('should return ClaudeCodeGenerator for "claude-code"', () => {
         expect(getGenerator('claude-code')).toBeInstanceOf(ClaudeCodeGenerator);
-    });
-
-    it('should return AntigravityGenerator for "antigravity"', () => {
-        expect(getGenerator('antigravity')).toBeInstanceOf(AntigravityGenerator);
     });
 
     it('should return CursorGenerator for "cursor"', () => {

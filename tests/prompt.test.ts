@@ -23,8 +23,9 @@ describe('CLI Prompts', () => {
     const choices = callArgs.choices as Array<{ name: string; value: string }>;
     
     expect(choices).toHaveLength(2);
-    expect(choices.find(c => c.value === 'prompt')?.name).toBe('Slash Custom Prompts (Commands)');
+    expect(choices.find(c => c.value === 'prompt')?.name).toBe('Slash Custom Prompts (Commands, deprecated)');
     expect(choices.find(c => c.value === 'skills')?.name).toBe('Skills');
+        expect(callArgs.default).toBe('skills');
   });
 
   it('should prompt for skills target with correct choices', async () => {
@@ -36,15 +37,15 @@ describe('CLI Prompts', () => {
     const callArgs = vi.mocked(select).mock.calls[0][0];
     const choices = callArgs.choices as Array<{ name: string; value: string }>;
     
-    expect(choices).toHaveLength(4);
+    expect(choices).toHaveLength(2);
     expect(choices.find(c => c.value === 'general')?.name).toBe('General Coding Agents');
     expect(choices.find(c => c.value === 'claude-code')?.name).toBe('Claude Code');
-    expect(choices.find(c => c.value === 'antigravity')?.name).toBe('Antigravity');
-    expect(choices.find(c => c.value === 'gemini')?.name).toBe('Gemini CLI');
+    expect(choices.find(c => c.value === 'antigravity')).toBeUndefined();
+    expect(choices.find(c => c.value === 'gemini')).toBeUndefined();
   });
 
-  it('should include Antigravity in options', async () => {
-    vi.mocked(select).mockResolvedValue('antigravity');
+  it('should not include Antigravity in prompt command options', async () => {
+    vi.mocked(select).mockResolvedValue('opencode');
 
     await promptForAgent();
 
@@ -52,8 +53,8 @@ describe('CLI Prompts', () => {
     const choices = callArgs.choices as Array<{ name: string; value: string }>;
 
     const antigravityChoice = choices.find(c => c.value === 'antigravity');
-    expect(antigravityChoice).toBeDefined();
-    expect(antigravityChoice?.name).toBe('Antigravity');
+    expect(antigravityChoice).toBeUndefined();
+    expect(choices).toHaveLength(8);
   });
 
   it('should include Windsurf in options', async () => {

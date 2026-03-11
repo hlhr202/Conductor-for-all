@@ -2,8 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { getSkillsGenerator } from '../../src/skills-generators/factory.js';
 import { GeneralSkillsGenerator } from '../../src/skills-generators/general/index.js';
 import { ClaudeCodeSkillsGenerator } from '../../src/skills-generators/claude-code/index.js';
-import { antigravityConfig } from '../../src/generators/antigravity/index.js';
-import { geminiConfig } from '../../src/generators/gemini/index.js';
+import { opencodeConfig } from '../../src/generators/opencode/index.js';
 
 describe('Skills Generator Factory', () => {
   it('should resolve a skills generator strategy for General Coding Agent', () => {
@@ -16,22 +15,12 @@ describe('Skills Generator Factory', () => {
     expect(generator).toBeInstanceOf(ClaudeCodeSkillsGenerator);
   });
 
-  it('should pass agent configuration into the selected skills generator', () => {
-    const generator = getSkillsGenerator('general', geminiConfig) as GeneralSkillsGenerator & {
+  it('should pass the AGENTS protocol into the general skills generator', () => {
+    const generator = getSkillsGenerator('general', opencodeConfig) as GeneralSkillsGenerator & {
       agentConfig?: { protocolFilename?: string };
     };
 
-    expect(generator.agentConfig?.protocolFilename).toBe('GEMINI.md');
-  });
-
-  it('should resolve Antigravity to the general skills generator', () => {
-    const generator = getSkillsGenerator('antigravity', antigravityConfig);
-    expect(generator).toBeInstanceOf(GeneralSkillsGenerator);
-  });
-
-  it('should resolve Gemini CLI to the general skills generator', () => {
-    const generator = getSkillsGenerator('gemini', geminiConfig);
-    expect(generator).toBeInstanceOf(GeneralSkillsGenerator);
+    expect(generator.agentConfig?.protocolFilename).toBe('AGENTS.md');
   });
 
   it('should throw an error for unknown target', () => {

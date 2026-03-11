@@ -16,6 +16,19 @@ Originally tied to the Gemini CLI extension, this project aims to decouple the m
 -   **Agent-Agnostic Setup:** Provide a mechanism to "install" Conductor commands and templates into a project, effectively "enabling" it for consumption by multiple different coding agents.
 -   **Standardization:** Create a unified interface for project orchestration that bridges the gap between human intent and AI execution.
 
+## 🔧 Skills Install Mode (Recommended)
+
+Conductor supports two primary installation formats: "Slash Custom Prompts (Commands)" and "Skills". We recommend the **Skills** installation mode as the preferred option for most projects.
+
+- **What "Skills" does:** Installs Conductor as agentskills.io–style skill files (or agent-specific skill directories) so your Conductor commands and workflows are discoverable and consumable by a wide range of AI agents and tooling.
+- **Why prefer Skills:** Skills are more portable across agents and platforms, easier to version and distribute, and better aligned with agent ecosystems that support skill/skillpack discovery. They avoid relying on agent-specific slash-command syntax and generally offer better long-term compatibility.
+- **When to still use Slash Commands:** Use the slash command / prompt-file form when your environment or agent specifically requires prompt files (for example, some local prompt-driven integrations or editor-specific prompt formats).
+- **Example install targets:**
+	- `.agents/skills/` — general skills directory (recommended default)
+	- `.claude/skills/` — Claude Code specific
+
+When running the installer, choose **Skills** to get the recommended, cross-agent installation by default.
+
 ## 🚀 Usage
 
 ### 1. Setup Conductor in Your Project
@@ -53,14 +66,16 @@ This will verify the environment and install the necessary Conductor files:
 
 ### 3. Using Conductor with Your Agent
 
-Once installed, you can instruct your AI Agent to perform Conductor tasks using the installed commands. For example:
+Once installed, you can instruct your AI Agent to perform Conductor tasks using the installed commands or the provided skill files. For example:
 
--   `@agent /conductor:setup` - Initialize the project structure.
--   `@agent /conductor:newTrack` - Start a new feature or bug fix track.
--   `@agent /conductor:implement` - Implement the selected track.
--   `@agent /conductor:status` - Check the status of current tracks.
+- `@agent /conductor-setup` — Initialize the project structure. (skill: `.agents/skills/conductor-setup/SKILL.md`)
+- `@agent /conductor-newTrack` — Start a new feature or bug fix track. (skill: `.agents/skills/conductor-newTrack/SKILL.md`)
+- `@agent /conductor-implement` — Implement the selected track. (skill: `.agents/skills/conductor-implement/SKILL.md`)
+- `@agent /conductor-status` — Check the status of current tracks. (skill: `.agents/skills/conductor-status/SKILL.md`)
+- `@agent /conductor-review` — Run the review protocol for a track. (skill: `.agents/skills/conductor-review/SKILL.md`)
+- `@agent /conductor-revert` — Revert changes related to a track. (skill: `.agents/skills/conductor-revert/SKILL.md`)
 
-*Note: The exact invocation syntax depends on your specific agent's slash command or file context capabilities.*
+*Note: many agents can run the skill by opening the skill file (for example, open `.agents/skills/conductor-implement/SKILL.md`), or by selecting/running the skill name in the agent UI. Skills also commonly include a recommended slash invocation so you can keep using the short command form.*
 
 
 

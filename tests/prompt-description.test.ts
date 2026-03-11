@@ -27,8 +27,8 @@ describe('Agent Selection Prompt', () => {
     expect(claudeChoice).toBeDefined();
     expect(claudeChoice.description).toBe("Anthropic's coding assistant");
 
-    const antigravityChoice = choices.find((c: any) => c.value === 'antigravity');
-    expect(antigravityChoice).toBeDefined();
-    expect(antigravityChoice.description).toBe("Google's agentic coding assistant");
+    const geminiChoice = choices.find((c: any) => c.value === 'gemini');
+    expect(geminiChoice).toBeDefined();
+    expect(geminiChoice.description).toBe('Google Gemini CLI agent');
   });
 });

@@ -1,22 +1,22 @@
 import select from '@inquirer/select';
-import { AgentType, InstallScope, InstallMode, SkillsTarget } from '../types.js';
+import { InstallScope, InstallMode, PromptAgentType, SkillsTarget } from '../types.js';
 
 export async function promptForInstallMode(): Promise<InstallMode> {
   const answer = await select<InstallMode>({
     message: 'Select installation mode:',
     choices: [
       {
-        name: 'Slash Custom Prompts (Commands)',
-        value: 'prompt',
-        description: 'Install as standard slash commands (e.g. /conductor:implement)',
-      },
-      {
         name: 'Skills',
         value: 'skills',
         description: 'Install as agentskills.io compliant skills',
+      },
+      {
+        name: 'Slash Custom Prompts (Commands, deprecated)',
+        value: 'prompt',
+        description: 'Install as standard slash commands (e.g. /conductor:implement)',
       }
     ],
-    default: 'prompt',
+    default: 'skills',
   });
 
   return answer;
@@ -35,16 +35,6 @@ export async function promptForSkillsTarget(): Promise<SkillsTarget> {
         name: 'Claude Code',
         value: 'claude-code',
         description: 'Install to .claude/skills/ directory',
-      },
-      {
-        name: 'Antigravity',
-        value: 'antigravity',
-        description: 'Install to .agents/skills/ with GEMINI.md protocol',
-      },
-      {
-        name: 'Gemini CLI',
-        value: 'gemini',
-        description: 'Install to .agents/skills/ with GEMINI.md protocol',
       }
     ],
     default: 'general',
@@ -53,7 +43,7 @@ export async function promptForSkillsTarget(): Promise<SkillsTarget> {
   return answer;
 }
 
-export async function promptForInstallScope(agent: AgentType): Promise<InstallScope> {
+export async function promptForInstallScope(agent: PromptAgentType): Promise<InstallScope> {
   const isCodex = agent === 'codex';
   const isCline = agent === 'cline';
 
@@ -72,8 +62,8 @@ export async function promptForInstallScope(agent: AgentType): Promise<InstallSc
   return answer;
 }
 
-export async function promptForAgent(): Promise<AgentType> {
-  const answer = await select<AgentType>({
+export async function promptForAgent(): Promise<PromptAgentType> {
+  const answer = await select<PromptAgentType>({
     message: 'Select your coding agent:',
     choices: [
       {
@@ -85,11 +75,6 @@ export async function promptForAgent(): Promise<AgentType> {
         name: 'Claude Code',
         value: 'claude-code',
         description: "Anthropic's coding assistant",
-      },
-      {
-        name: 'Antigravity',
-        value: 'antigravity',
-        description: "Google's agentic coding assistant",
       },
       {
         name: 'Cursor',

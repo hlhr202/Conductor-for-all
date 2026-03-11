@@ -16,6 +16,19 @@
 -   **에이전트 불가지론적 설정:** 프로젝트에 Conductor 명령과 템플릿을 "설치"하는 메커니즘을 제공하여 여러 다른 코딩 에이전트가 사용할 수 있도록 "활성화"합니다.
 -   **표준화:** 인간의 의도와 AI 실행 사이의 격차를 좁히는 프로젝트 오케스트레이션을 위한 통합 인터페이스를 만듭니다.
 
+## 🔧 Skills 설치 모드(권장)
+
+Conductor는 기본적으로 두 가지 설치 형식을 지원합니다: "Slash Custom Prompts (Commands)"와 "Skills". 대부분의 프로젝트에서는 **Skills** 설치 모드를 권장합니다.
+
+- **Skills가 하는 일:** Conductor를 agentskills.io 스타일의 스킬 파일(또는 에이전트별 스킬 디렉터리)로 설치하여 Conductor 명령과 워크플로를 다양한 AI 에이전트와 도구에서 발견하고 사용할 수 있게 합니다.
+- **Skills를 권장하는 이유:** 에이전트와 플랫폼 간 이식성이 높고 버전 관리 및 배포가 쉬우며, 스킬/스킬팩 검색을 지원하는 에코시스템과 잘 맞아 에이전트 특정의 슬래시 명령 구문에 의존하지 않습니다.
+- **예시 설치 대상:**
+	- `.agents/skills/` — 일반 스킬 디렉터리(권장 기본)
+	- `.claude/skills/` — Claude Code 전용
+	- `.gemini/skills/` — Gemini CLI / 프로토콜 전용
+
+설치 프로그램을 실행할 때 **Skills**를 선택하면 권장되는 크로스-에이전트 설치를 받을 수 있습니다.
+
 ## 🚀 사용법
 
 ### 1. 프로젝트에서 Conductor 설정
@@ -53,14 +66,16 @@ AI 코딩 에이전트를 선택하라는 메시지가 표시됩니다:
 
 ### 3. 에이전트와 함께 Conductor 사용
 
-설치가 완료되면 설치된 명령을 사용하여 AI 에이전트에게 Conductor 작업을 수행하도록 지시할 수 있습니다. 예를 들어:
+설치가 완료되면 설치된 명령이나 제공된 스킬 파일을 사용하여 AI 에이전트에게 Conductor 작업을 수행하도록 지시할 수 있습니다. 예를 들어:
 
--   `@agent /conductor:setup` - 프로젝트 구조를 초기화합니다.
--   `@agent /conductor:newTrack` - 새로운 기능 또는 버그 수정 트랙을 시작합니다.
--   `@agent /conductor:implement` - 선택한 트랙을 구현합니다.
--   `@agent /conductor:status` - 현재 트랙의 상태를 확인합니다.
+- `@agent /conductor-setup` — 프로젝트 구조를 초기화합니다. (skill: `.agents/skills/conductor-setup/SKILL.md`)
+- `@agent /conductor-newTrack` — 새로운 기능 또는 버그 수정 트랙을 시작합니다. (skill: `.agents/skills/conductor-newTrack/SKILL.md`)
+- `@agent /conductor-implement` — 선택한 트랙을 구현합니다. (skill: `.agents/skills/conductor-implement/SKILL.md`)
+- `@agent /conductor-status` — 현재 트랙의 상태를 확인합니다. (skill: `.agents/skills/conductor-status/SKILL.md`)
+- `@agent /conductor-review` — 트랙 검토 프로토콜을 실행합니다. (skill: `.agents/skills/conductor-review/SKILL.md`)
+- `@agent /conductor-revert` — 트랙 관련 변경을 되돌립니다. (skill: `.agents/skills/conductor-revert/SKILL.md`)
 
-*참고: 정확한 호출 구문은 특정 에이전트의 슬래시 명령 또는 파일 컨텍스트 기능에 따라 다릅니다.*
+*참고: 많은 에이전트는 스킬 파일을 열어(예: `.agents/skills/conductor-implement/SKILL.md`) 스킬을 실행하거나 에이전트 UI에서 스킬 이름을 선택/실행할 수 있습니다. 스킬에는 권장되는 슬래시 호출이 포함되어 있어 짧은 명령 형식도 사용할 수 있습니다.*
 
 
 

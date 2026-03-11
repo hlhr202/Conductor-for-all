@@ -62,23 +62,14 @@ describe('Install Command End-to-End', () => {
     expect(fs.existsSync(join(testDir, 'CLAUDE.md'))).toBe(true);
   });
 
-  it('should install successfully in skills mode for Antigravity', async () => {
+  it('should keep general skills installs on AGENTS.md even when a gemini agent flag is provided', async () => {
     vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
-    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('antigravity');
+    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('general');
 
-    await installHandler({ path: testDir, _: [], $0: 'conductor' });
+    await installHandler({ path: testDir, agent: 'gemini', _: [], $0: 'conductor' } as any);
 
     expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/SKILL.md'))).toBe(true);
-    expect(fs.existsSync(join(testDir, 'GEMINI.md'))).toBe(true);
-  });
-
-  it('should install successfully in skills mode for Gemini CLI', async () => {
-    vi.mocked(promptModule.promptForInstallMode).mockResolvedValue('skills');
-    vi.mocked(promptModule.promptForSkillsTarget).mockResolvedValue('gemini');
-
-    await installHandler({ path: testDir, _: [], $0: 'conductor' });
-
-    expect(fs.existsSync(join(testDir, '.agents/skills/conductor-setup/SKILL.md'))).toBe(true);
-    expect(fs.existsSync(join(testDir, 'GEMINI.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'AGENTS.md'))).toBe(true);
+    expect(fs.existsSync(join(testDir, 'GEMINI.md'))).toBe(false);
   });
 });
