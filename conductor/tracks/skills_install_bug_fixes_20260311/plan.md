@@ -16,7 +16,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2' (Protocol in workflow.md)
 
 ## Phase 3: Final Verification
-- [ ] Task: End-to-End Testing
-    - [ ] Run `conductor install` using the skills generator for various agents (e.g., Gemini CLI, Claude Code, General).
-    - [ ] Verify both the correct protocol files are created in the project root and the template paths in the generated setup skill are correct.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
+- [x] Task: End-to-End Testing
+    - [x] Run `conductor install` using the skills generator for various agents (e.g., Gemini CLI, Claude Code, General).
+    - [x] Verify both the correct protocol files are created in the project root and the template paths in the generated setup skill are correct.
+- [x] Task: Conductor - User Manual Verification 'Phase 3' (Protocol in workflow.md)
