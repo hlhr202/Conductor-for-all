@@ -70,4 +70,14 @@ prompt = "Mock prompt with __$$CODE_AGENT_INSTALL_PATH$$__"
     expect(content).toContain('description: Mock description');
     expect(content).toContain('Mock prompt with .test-agent');
   });
+
+  it('should copy setup templates for conductor-setup skill', async () => {
+    await generator.generate('/mock/target');
+    
+    // Check that fs.copy was called for the setup template folder
+    expect(fs.copy).toHaveBeenCalledWith(
+      join('/mock/templates', 'templates'),
+      join('/mock/target', '.test-agent', 'skills', 'conductor-setup', 'templates')
+    );
+  });
 });

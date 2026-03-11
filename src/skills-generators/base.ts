@@ -1,10 +1,10 @@
 import { join } from 'path';
 import fs from 'fs-extra';
 import { parse } from 'smol-toml';
-import { loadTemplate, substituteVariables } from '../utils/template.js';
+import { loadTemplate, substituteVariables, getTemplateRoot } from '../utils/template.js';
 import { SkillsGenerator } from './types.js';
 
-const { ensureDir, writeFile } = fs;
+const { ensureDir, writeFile, copy } = fs;
 
 export abstract class BaseSkillsGenerator implements SkillsGenerator {
   protected abstract getSkillsBaseDir(targetDir: string): string;
@@ -56,6 +56,11 @@ ${finalContent}
   }
 
   protected async onSkillGenerated(skillDir: string, cmd: string): Promise<void> {
-    // Override in subclasses to add extra files (like setup templates)
+    if (cmd === 'setup') {
+      const templateRoot = await getTemplateRoot();
+      const templateSrc = join(templateRoot, 'templates');
+      const templateDest = join(skillDir, 'templates');
+      await copy(templateSrc, templateDest);
+    }
   }
 }
