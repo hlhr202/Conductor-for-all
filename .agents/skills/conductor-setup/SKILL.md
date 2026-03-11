@@ -1,6 +1,8 @@
 ---
+name: conductor-setup
 description: Scaffolds the project and sets up the Conductor environment
 ---
+
 ## 1.0 SYSTEM DIRECTIVE
 You are an AI agent. Your primary function is to set up and manage a software project using the Conductor methodology. This document is your operational protocol. Adhere to these instructions precisely and sequentially. Do not make assumptions.
 
@@ -24,7 +26,9 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 ## 1.2 PROJECT AUDIT
 **PROTOCOL: Before starting the setup, determine the project's state by auditing existing artifacts.**
 
-1.  **Audit Artifacts:** Check the file system for the existence of the following files/directories in the `conductor/` directory:
+1.  **Announce Audit:** Inform the user that you are auditing the project for any existing Conductor configuration.
+
+2.  **Audit Artifacts:** Check the file system for the existence of the following files/directories in the `conductor/` directory:
     - `product.md`
     - `product-guidelines.md`
     - `tech-stack.md`
@@ -33,7 +37,7 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     - `index.md`
     - `tracks/*/` (specifically `plan.md` and `index.md`)
 
-2.  **Determine Target Section:** Map the project's state to a target section using the priority table below (highest match wins). **DO NOT JUMP YET.** Keep this target in mind.
+3.  **Determine Target Section:** Map the project's state to a target section using the priority table below (highest match wins). **DO NOT JUMP YET.** Keep this target in mind.
 
 | Artifact Exists | Target Section | Announcement |
 | :--- | :--- | :--- |
@@ -46,7 +50,7 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 | `product.md` | **Section 2.2** | "Resuming setup: Product Guide is complete. Next: create Product Guidelines." |
 | (None) | **Section 2.0** | (None) |
 
-3. **Proceed to Section 2.0:** You MUST proceed to Section 2.0 to establish the Greenfield/Brownfield context before jumping to your target.
+4. **Proceed to Section 2.0:** You MUST proceed to Section 2.0 to establish the Greenfield/Brownfield context before jumping to your target.
 
 ---
 
@@ -159,10 +163,9 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     -   **If user chose "Autogenerate":** Use your best judgment to expand on the initial project goal and infer any missing details to create a comprehensive document.
     -   **If user chose "Interactive":** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**. You are encouraged to expand on these choices to create a polished output.
 5.  **User Confirmation Loop:**
-    -   **Announce:** Briefly state that the draft is ready (e.g., "Draft generated."). Do NOT repeat the request to "review" or "approve" in the chat.
     -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
         - **questions:**
-            - **header:** "Review"
+            - **header:** "Review Draft"
             - **question:**
                 Please review the drafted Product Guide below. What would you like to do next?
 
@@ -207,10 +210,9 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     -   **If user chose "Autogenerate":** Use your best judgment to infer standard, high-quality guidelines suitable for the project type.
     -   **If user chose "Interactive":** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**. You are encouraged to expand on these choices to create a polished output.
 5.  **User Confirmation Loop:**
-    -   **Announce:** Briefly state that the draft is ready (e.g., "Draft generated."). Do NOT repeat the request to "review" or "approve" in the chat.
     -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
         - **questions:**
-            - **header:** "Review"
+            - **header:** "Review Draft"
             - **question:**
                 Please review the drafted Product Guidelines below. What would you like to do next?
 
@@ -263,10 +265,9 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
     -   **If user chose "Autogenerate":** Use your best judgment to infer a standard, high-quality stack suitable for the project goal.
     -   **If user chose "Interactive" or corrected the Brownfield stack:** Use the specific answers provided. The source of truth is **only the user's selected answer(s)**.
 5.  **User Confirmation Loop:**
-    -   **Announce:** Briefly state that the draft is ready (e.g., "Draft generated."). Do NOT repeat the request to "review" or "approve" in the chat.
     -   **Ask for Approval:** Use the `ask_user` tool to request confirmation. You MUST embed the drafted content directly into the `question` field so the user can review it in context.
         - **questions:**
-            - **header:** "Review"
+            - **header:** "Review Draft"
             - **question:**
                 Please review the drafted Tech Stack below. What would you like to do next?
 
@@ -284,7 +285,7 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 ### 2.4 Select Guides (Interactive)
 1.  **Initiate Dialogue:** Announce that the initial scaffolding is complete and you now need the user's input to select the project's guides from the locally available templates.
 2.  **Select Code Style Guides:**
-    -   List the available style guides by running `ls .agent/conductor/templates/code_styleguides/`.
+    -   List the available style guides by running `ls .agents/skills/conductor-setup/templates/code_styleguides/`.
     -   **FOR GREENFIELD PROJECTS:**
         -   **Recommendation:** Based on the Tech Stack defined in the previous step, recommend the most appropriate style guide(s) (e.g., "python.md" for a Python project) and explain why.
         -   **Determine Mode:** Use the `ask_user` tool:
@@ -321,12 +322,12 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
             -   **Action:** Announce "I'll present the additional guides. Please select all that apply." Then, immediately call the `ask_user` tool (do not list the questions in the chat).
             -   **Method:** Use a single `ask_user` tool call. Dynamically split the available guides into batches of 4 options max. Create one `multiSelect: true` question for each batch.
 
-3.  **Action:** Construct and execute a command to create the directory and copy all selected files. For example: `mkdir -p conductor/code_styleguides && cp .agent/conductor/templates/code_styleguides/python.md .agent/conductor/templates/code_styleguides/javascript.md conductor/code_styleguides/`
+3.  **Action:** Construct and execute a command to create the directory and copy all selected files. For example: `mkdir -p conductor/code_styleguides && cp .agents/skills/conductor-setup/templates/code_styleguides/python.md .agents/skills/conductor-setup/templates/code_styleguides/javascript.md conductor/code_styleguides/`
 4.  **Continue:** Immediately proceed to the next section.
 
 ### 2.5 Select Workflow (Interactive)
 1.  **Copy Initial Workflow:**
-    -   Copy `.agent/conductor/templates/workflow.md` to `conductor/workflow.md`.
+    -   Copy `.agents/skills/conductor-setup/templates/workflow.md` to `conductor/workflow.md`.
 2.  **Determine Mode:** Use the `ask_user` tool to let the user choose their preferred workflow.
     - **questions:**
         - **header:** "Workflow"
@@ -497,3 +498,4 @@ CRITICAL: You must validate the success of every tool call. If any tool call fai
 1.  **Announce Completion:** After the track has been created, announce that the project setup and initial track generation are complete.
 2.  **Save Conductor Files:** Add and commit all files with the commit message `conductor(setup): Add conductor setup files`.
 3.  **Next Steps:** Inform the user that they can now begin work by running `/conductor:implement`.
+
