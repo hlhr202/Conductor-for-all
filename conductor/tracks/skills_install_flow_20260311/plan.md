@@ -33,18 +33,18 @@
     - [ ] Refactor: keep frontmatter generation consistent across both skills strategies
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Build skill generation architecture' (Protocol in workflow.md)
 
-## Phase 3: Add agent-specific skill outputs and setup assets
-- [ ] Task: Write skills to the correct project-level directories
+## Phase 3: Add agent-specific skill outputs and setup assets [checkpoint: ceb33ed]
+- [x] Task: Write skills to the correct project-level directories [8604740]
     - [ ] Write failing test: verify `General Coding Agent` outputs to `.agents/skills/<skill-name>/`
     - [ ] Write failing test: verify `Claude Code` outputs to `.claude/skills/<skill-name>/`
     - [ ] Implement: wire the two strategies to generate the correct project-level folder structure
     - [ ] Refactor: isolate path-building logic from content-generation logic
-- [ ] Task: Package setup templates inside `conductor-setup`
+- [x] Task: Package setup templates inside `conductor-setup` [8604740]
     - [ ] Write failing test: verify `conductor-setup/templates/workflow.md` is generated
     - [ ] Write failing test: verify `conductor-setup/templates/code_styleguides/` is generated with the expected template files
     - [ ] Implement: copy the required setup template assets into `conductor-setup/templates/`
     - [ ] Refactor: reuse existing template-loading utilities where possible
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Add agent-specific skill outputs and setup assets' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Add agent-specific skill outputs and setup assets' (Protocol in workflow.md)
 
 ## Phase 4: Verify compatibility and quality gates
 - [ ] Task: Preserve existing slash prompt behavior
