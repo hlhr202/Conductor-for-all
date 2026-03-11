@@ -1,6 +1,6 @@
 # Implementation Plan
 
-## Phase 1: Add install mode branching
+## Phase 1: Add install mode branching [checkpoint: cfbd500]
 - [x] Task: Introduce install mode selection in the install command flow [403ac09]
     - [ ] Write failing test: verify install prompts for `slash custom prompt` or `skills`
     - [ ] Write failing test: verify selecting `slash custom prompt` preserves the current agent-selection flow
@@ -12,7 +12,7 @@
     - [ ] Write failing test: verify the selected skills target is passed into the skills generation flow
     - [ ] Implement: add prompt helpers and install-command wiring for the two-option skills target selection
     - [ ] Refactor: align prompt naming and types with the existing CLI prompt patterns
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Add install mode branching' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Add install mode branching' (Protocol in workflow.md)
 
 ## Phase 2: Build skill generation architecture
 - [ ] Task: Add a dedicated skills generator module
