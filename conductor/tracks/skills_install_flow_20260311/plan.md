@@ -47,17 +47,17 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Add agent-specific skill outputs and setup assets' (Protocol in workflow.md)
 
 ## Phase 4: Verify compatibility and quality gates
-- [ ] Task: Preserve existing slash prompt behavior
-    - [ ] Write failing test: verify prompt-mode installs still use the existing generators unchanged
-    - [ ] Implement: fix any regressions introduced by install mode branching
-    - [ ] Refactor: remove compatibility shims if the final flow no longer needs them
-- [ ] Task: Add integration coverage for the full install flow
-    - [ ] Write failing test: verify end-to-end prompt-mode installation still succeeds
-    - [ ] Write failing test: verify end-to-end skills-mode installation succeeds for `General Coding Agent`
-    - [ ] Write failing test: verify end-to-end skills-mode installation succeeds for `Claude Code`
-    - [ ] Implement: add or update integration-style tests around install orchestration and generated outputs
-- [ ] Task: Run project quality gates for the new flow
-    - [ ] Verify coverage for the new code meets the project target
-    - [ ] Run configured test checks for the changed modules
-    - [ ] Review generated outputs for documentation and type-safety consistency
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Verify compatibility and quality gates' (Protocol in workflow.md)
+- [x] Task: Preserve existing slash prompt behavior
+    - [x] Write failing test: verify prompt-mode installs still use the existing generators unchanged
+    - [x] Implement: fix any regressions introduced by install mode branching
+    - [x] Refactor: remove compatibility shims if the final flow no longer needs them
+- [x] Task: Add integration coverage for the full install flow
+    - [x] Write failing test: verify end-to-end prompt-mode installation still succeeds
+    - [x] Write failing test: verify end-to-end skills-mode installation succeeds for `General Coding Agent`
+    - [x] Write failing test: verify end-to-end skills-mode installation succeeds for `Claude Code`
+    - [x] Implement: add or update integration-style tests around install orchestration and generated outputs
+- [x] Task: Run project quality gates for the new flow
+    - [x] Verify coverage for the new code meets the project target
+    - [x] Run configured test checks for the changed modules
+    - [x] Review generated outputs for documentation and type-safety consistency
+- [~] Task: Conductor - User Manual Verification 'Phase 4: Verify compatibility and quality gates' (Protocol in workflow.md)
