@@ -49,3 +49,4 @@ This file tracks all major tracks for the project. Each track has its own detail
   *Link: [./conductor/archive/agent_installation_scope_20260109/](./conductor/archive/agent_installation_scope_20260109/)*
 
 
+\n---\n\n- [ ] **Track: Fix protocol files installation and setup template path issues in the skills generator flow.**\n  *Link: [./conductor/tracks/skills_install_bug_fixes_20260311/](./conductor/tracks/skills_install_bug_fixes_20260311/)*\n
