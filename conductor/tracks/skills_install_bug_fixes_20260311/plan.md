@@ -1,7 +1,7 @@
 # Implementation Plan - Skills Installation Flow Bug Fixes
 
 ## Phase 1: Fix Protocol Files Installation
-- [ ] Task: Pass Agent Context to Skills Generators
+- [x] Task: Pass Agent Context to Skills Generators (e6913ee)
     - [ ] Update the factory or instantiation logic to pass the selected agent's configuration (which includes `protocolFilename`) into the `BaseSkillGenerator`.
 - [ ] Task: Implement Protocol File Copy Logic
     - [ ] Modify `BaseSkillGenerator.ts` to utilize the agent's configuration to copy the correct protocol file (`AGENTS.md`, `GEMINI.md`, or `CLAUDE.md`).
