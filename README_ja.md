@@ -6,6 +6,11 @@
 
 [English](./README.md) | [中文](./README_zh.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md)
 
+> [!IMPORTANT]
+> **移行の推奨:** メンテナーは、新規および既存の skill ベースのワークフローを [hlhr202/swe-skills](https://github.com/hlhr202/swe-skills) へ移行することを推奨します。
+>
+> この推奨には明確な理由があります。Google の上流 Conductor エコシステムには、Google 独自の service 関連 skill catalog が導入されましたが、本プロジェクトではその catalog を参照または依存する意図はありません。`swe-skills` は Conductor のワークフローモデルを完全に継承しつつ、アーキテクチャ討論プロセスを追加しています。
+
 **Conductor for All** は、[Conductor](https://github.com/gemini-cli-extensions/conductor) の仕様駆動型開発手法を *あらゆる* コーディング環境にもたらすために設計されたスタンドアロンのコマンドラインツールです。
 
 もともと Gemini CLI 拡張機能に紐付いていたこのプロジェクトは、その手法を分離し、開発者が自分のプロジェクトに Conductor ワークフローをインストールして初期化できるようにすることで、**あらゆる** AI コーディングエージェント（Claude Code、Cursor、VS Code Copilot、Codex など）や IDE で活用できるようにすることを目指しています。

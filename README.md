@@ -6,6 +6,11 @@
 
 [English](./README.md) | [中文](./README_zh.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md)
 
+> [!IMPORTANT]
+> **Recommended migration:** The maintainer recommends migrating new and existing skill-based workflows to [hlhr202/swe-skills](https://github.com/hlhr202/swe-skills).
+>
+> This recommendation is intentional: Google's upstream Conductor ecosystem has introduced a Google-owned service-related skill catalog, and this project does not intend to reference or depend on that catalog. `swe-skills` fully inherits the Conductor workflow model while adding an architecture discussion process.
+
 **Conductor for All** is a standalone command-line tool designed to bring the [Conductor](https://github.com/gemini-cli-extensions/conductor) spec-driven development methodology to *any* coding environment.
 
 Originally tied to the Gemini CLI extension, this project aims to decouple the methodology, allowing developers to install and initialize Conductor workflows in their projects so they can be leveraged by **any** AI Coding Agent (e.g., Claude Code, Cursor, VS Code Copilot, Codex) or IDE.
